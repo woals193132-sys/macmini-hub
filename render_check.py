@@ -2,8 +2,9 @@
 """Headless render check for the hub (no browser needed).
 
 Runs the page's inline scripts against a minimal DOM stub in QuickJS and
-prints what the key containers end up containing. Works for both
-hub.html (data inlined) and index.html (data supplied up front here).
+prints what the key containers end up containing, plus the result of the
+interactive parts (결재/퀴즈 정답 공개, 영어 뜻 보기, 조직 상세 시트).
+Works for both hub.html (data inlined) and index.html (data supplied here).
 
 Usage: python3 render_check.py [hub.html|index.html] [--brief]
 """
@@ -22,8 +23,9 @@ html = target.read_text(encoding="utf-8")
 scripts = re.findall(r"<script>(.*?)</script>", html, re.S)
 data_json = (HERE / "data.json").read_text(encoding="utf-8")
 
-PRE = """
+PRE = r"""
 var __els = {};
+var __cache = {};
 function mkEl(sel){
   var el = {
     _sel: sel, innerHTML: "", textContent: "", hidden: false, href: "", style: {},
@@ -43,17 +45,41 @@ function mkEl(sel){
   return el;
 }
 function el(sel){ return __els[sel] || mkEl(sel); }
+/* 같은 클래스의 요소를 등록된 컨테이너들의 innerHTML에서 찾아, 같은 순서·같은 태그면 같은 객체를 돌려준다 */
+function findAll(cls){
+  var out = [], idx = 0, re = /<[a-zA-Z][^>]*>/g, k;
+  for (k in __els){
+    var h = __els[k].innerHTML || "";
+    if (!h) continue;
+    re.lastIndex = 0;
+    var m;
+    while ((m = re.exec(h))){
+      var tag = m[0];
+      var cm = tag.match(/class="([^"]*)"/);
+      if (!cm) continue;
+      if (cm[1].split(/\s+/).indexOf(cls) < 0) continue;
+      var key = cls + "#" + idx + "|" + tag, e = __cache[key];
+      if (!e){ e = mkEl("." + cls + "#" + idx); __cache[key] = e; }
+      e.dataset = {};
+      var d, dr = /data-([a-zA-Z-]+)="([^"]*)"/g;
+      while ((d = dr.exec(tag))) e.dataset[d[1].replace(/-([a-z])/g, function(_, c){ return c.toUpperCase(); })] = d[2];
+      out.push(e);
+      idx++;
+    }
+  }
+  return out;
+}
+function fire(elm, ev){
+  if (!elm) return 0;
+  var ls = elm._listeners[ev] || [];
+  for (var i = 0; i < ls.length; i++) ls[i]();
+  return ls.length;
+}
 var document = {
   documentElement: { _attrs: {}, setAttribute: function(k, v){ this._attrs[k] = v; }, getAttribute: function(k){ return this._attrs[k]; } },
   querySelector: function(sel){ return el(sel); },
   querySelectorAll: function(sel){
-    if (sel === ".dept") {
-      var n = (el("#depts").innerHTML.match(/class="dept/g) || []).length;
-      var out = [];
-      for (var i = 0; i < n; i++) { var e = el(".dept#" + i); e.dataset.g = String(i); out.push(e); }
-      return out;
-    }
-    if (sel === ".office") { return [el("#office")]; }
+    if (sel.charAt(0) === "." && sel.indexOf("#") < 0) return findAll(sel.slice(1));
     return [];
   },
   addEventListener: function(){}
@@ -71,25 +97,53 @@ var clearTimeout = function(){};
 var Intl = { DateTimeFormat: function(){ return { format: function(){ return "2026-11-18"; } }; } };
 """
 
-POST = """
+POST = r"""
 var __OUT = (function(){
   var out = {};
-  ["#service","#syncAt","#footAt","#clock","#deptCnt","#officeCnt","#trialCnt","#quizCnt","#moneyCnt","#opCnt"].forEach(function(s){
+  ["#service","#todayLabel","#footAt","#clock","#decCnt","#mktAt","#qpos","#ppos",
+   "#deptCnt","#officeCnt","#trialCnt","#quizCnt","#moneyCnt","#opCnt"].forEach(function(s){
     out[s] = el(s).textContent;
   });
-  ["#banners","#kpis","#flow","#office","#depts","#bSum","#opSum","#ops","#report","#alliance","#money"].forEach(function(s){
-    out[s] = el(s).innerHTML;
-  });
-  var off = el("#office");
-  (off._listeners.click || []).forEach(function(fn){ fn(); });
-  out["sheet:office"] = el("#sheetTitle").innerHTML + " || " + el("#sheetTeams").innerHTML.length + " || " + el("#sheetList").innerHTML.slice(0, 80);
-  function fireGroup(i){
-    var g = el(".dept#" + i);
-    (g._listeners.click || []).forEach(function(fn){ fn(); });
-    return el("#sheetTitle").innerHTML + " || teams-html=" + el("#sheetTeams").innerHTML.length + " || head=" +
-      (el("#sheetTeams").innerHTML.match(/steams-head">[^<]*/) || [""])[0];
+  ["#hero","#market","#decisions","#life","#banners","#kpis","#flow","#office","#depts",
+   "#bSum","#opSum","#ops","#report","#alliance","#money"].forEach(function(s){ out[s] = el(s).innerHTML; });
+
+  /* --- 오늘의 1분 학습: 퀴즈 --- */
+  var opts = document.querySelectorAll(".qopt");
+  out["quiz.choiceCount"] = opts.length;
+  out["quiz.beforeReveal"] = el("#quiz").innerHTML.indexOf("qans") >= 0;
+  fire(opts[0], "click");
+  var qh = el("#quiz").innerHTML;
+  out["quiz.revealed"] = qh.indexOf("qans") >= 0;
+  out["quiz.verdict"] = (qh.match(/<div class="qh">([^<]*)<\/div>/) || ["", ""])[1];
+  out["quiz.marked"] = qh.indexOf("qopt ok") >= 0 ? "정답 보기 표시됨" : "표시 없음";
+  out["quiz.explanation"] = ((qh.match(/<div class="qexp">([^<]*)<\/div>/) || ["", ""])[1] || "").slice(0, 70);
+  var q1 = el("#quiz").innerHTML;
+  fire(el("#qnext"), "click");
+  out["quiz.nextChanged"] = el("#quiz").innerHTML !== q1;
+  out["quiz.nextQuestion"] = ((el("#quiz").innerHTML.match(/<div class="qq">Q\. ([^<]*)/) || ["", ""])[1] || "").slice(0, 42);
+  out["quiz.nextReset"] = el("#quiz").innerHTML.indexOf("qans") < 0 ? "해설 접힘" : "해설 남음";
+
+  /* --- 오늘의 1분 학습: 영어 표현 --- */
+  out["phrase.hasPronunciation"] = el("#phrase").innerHTML.indexOf("phpron") >= 0;
+  out["phrase.word"] = ((el("#phrase").innerHTML.match(/<div class="phex">([^<]*)/) || ["", ""])[1] || "");
+  out["phrase.koHiddenBefore"] = el("#phrase").innerHTML.indexOf("phko") < 0;
+  fire(el("#btnKo"), "click");
+  out["phrase.koShownAfter"] = el("#phrase").innerHTML.indexOf('class="phko"') >= 0;
+  out["phrase.koText"] = ((el("#phrase").innerHTML.match(/<div class="phko">([^<]*)/) || ["", ""])[1] || "").slice(0, 40);
+  fire(el("#btnSpeak"), "click");
+  out["phrase.speakToast"] = el("#toast").textContent;
+
+  /* --- 조직 상세 시트 --- */
+  fire(el("#office"), "click");
+  out["sheet:office"] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
+    " || " + el("#sheetList").innerHTML.slice(0, 60);
+  var groups = document.querySelectorAll(".dept");
+  out["deptCount"] = groups.length;
+  for (var i = 0; i < groups.length; i++){
+    fire(groups[i], "click");
+    out["sheet:group" + i] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
+      " || " + ((el("#sheetTeams").innerHTML.match(/steams-head">([^<]*)/) || ["", ""])[1] || "—");
   }
-  for (var i = 0; i < 6; i++) { out["sheet:group" + i] = fireGroup(i); }
   return out;
 })();
 """
