@@ -10,11 +10,8 @@ python3 build.py
 python3 render_check.py index.html --brief > /dev/null
 python3 render_check.py hub.html --brief > /dev/null
 
-# 매번 새 작업 폴더에 클론합니다 (이전 폴더가 잠겨 있어도 배포가 막히지 않게)
-rm -rf repo 2>/dev/null || true
-WORK=".deploy-$(date +%s)"
-rm -rf "$WORK" 2>/dev/null || true
-mkdir -p "$WORK"
+# 매번 새 임시 폴더에 클론합니다 (이전 폴더가 잠겨 있어도 배포가 막히지 않게)
+WORK=$(mktemp -d 2>/dev/null || echo "./.deploy-$$")
 git clone -q "https://github.com/${REPO}.git" "$WORK/repo"
 cp index.html data.json manifest.webmanifest icon-180.png icon-512.png hub.html README.md build.py render_check.py deploy.sh .nojekyll "$WORK/repo/"
 cd "$WORK/repo"
@@ -33,4 +30,5 @@ gh api "repos/${REPO}/pages" --jq '.source.branch + " " + .source.path + " · " 
 
 cd ../..
 rm -rf "$WORK" 2>/dev/null || true
+rm -rf repo 2>/dev/null || true
 echo "https://woals193132-sys.github.io/macmini-hub/"
