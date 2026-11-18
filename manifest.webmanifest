@@ -1,0 +1,17 @@
+{
+  "name": "AI 본부 관제 허브",
+  "short_name": "관제 허브",
+  "description": "재민 사장 · 맥미니 본부장의 AI 본부 관제 허브",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f1ff",
+  "theme_color": "#5746e8",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
