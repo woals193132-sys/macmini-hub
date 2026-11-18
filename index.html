@@ -351,7 +351,7 @@
   .gnum .gp{font-size:23px; font-weight:850; letter-spacing:-.06em; font-variant-numeric:tabular-nums; line-height:1}
   .gnum .gp small{font-size:11px; font-weight:750; margin-left:2px; opacity:.65; letter-spacing:-.02em}
   .gnum .gc{font-size:9.8px; font-weight:750; color:var(--muted); text-align:right; line-height:1.4; letter-spacing:-.01em; font-variant-numeric:tabular-nums}
-  .gtrack{position:relative; height:9px; border-radius:99px; margin-top:20px;
+  .gtrack{position:relative; height:9px; border-radius:99px; margin-top:32px;
     background:linear-gradient(90deg, rgba(217,45,58,.15), rgba(185,118,0,.13) 46%, rgba(14,159,110,.13))}
   .gfill{position:absolute; left:0; top:0; bottom:0; border-radius:99px;
     background:linear-gradient(90deg, rgba(79,70,229,.42), var(--brand))}
@@ -786,10 +786,10 @@
     var first = tr[0] || null;
     var gapTxt = "";
     if (first && price){
-      var gap = first.price - price;
-      gapTxt = gap > 0
-        ? "1차선까지 " + nfmt(gap) + "원 (" + (gap / price * 100).toFixed(1) + "%) 남았습니다"
-        : "1차선 도달 — 분할 시작 구간입니다";
+      var need = price - first.price;
+      gapTxt = need > 0
+        ? "1차선 " + nfmt(first.price) + "원까지 " + nfmt(need) + "원, " + (need / price * 100).toFixed(1) + "% 더 내려와야 합니다"
+        : "1차선 " + nfmt(first.price) + "원 도달 — 분할 시작 구간입니다";
     }
     var briefs = (t.briefs || []).map(function(b){
       return '<div class="brf">' +

@@ -4,7 +4,7 @@
     "subtitle": "오늘의 실전 관제 보드",
     "owner": "재민 사장",
     "chief": "맥미니 본부장",
-    "updated": "2026-11-18T19:52:51+09:00",
+    "updated": "2026-11-18T19:57:36+09:00",
     "service": {
       "active": 10,
       "total": 10,
@@ -15,11 +15,11 @@
     "date": "2026-11-18",
     "dateLabel": "11/18 (수)",
     "phase": "오늘 종가 반영",
-    "headline": "지수는 +2.0% 반등 — 1차 매수선까지는 아직 5% 남았습니다",
+    "headline": "지수는 +2.0% 반등 — 1차 매수선은 아직 아래에 있습니다",
     "stats": [
       {
         "k": "결재 대기",
-        "v": "4",
+        "v": "3",
         "tone": "red"
       },
       {
@@ -111,16 +111,6 @@
       }
     ],
     "decisions": [
-      {
-        "emoji": "🔓",
-        "title": "Pickle GitHub 앱 일시정지 해제",
-        "chip": "자동 푸시 잠김",
-        "chipCls": "soon",
-        "ask": "github.com/settings/installations → Pickle → Configure → Unsuspend 한 번만 눌러 주세요.",
-        "why": "쓰기 권한이 막혀(403) 라이브는 아직 v2입니다. 풀리면 v4가 라이브에 자동 반영되고, 매일 08:05 시황·학습도 제가 알아서 갈아끼웁니다.",
-        "link": "https://github.com/settings/installations",
-        "linkLabel": "GitHub 설정 열기"
-      },
       {
         "emoji": "🏠",
         "title": "화곡역 보눔하우스 임대 신청",
@@ -334,6 +324,13 @@
   "alerts": [
     {
       "level": "good",
+      "badge": "가동",
+      "text": "GitHub 자동 푸시 활성화 — v4가 라이브에 반영됐습니다",
+      "date": "",
+      "detail": "Pickle GitHub 앱 일시정지가 풀렸습니다. 쓰기 권한이 살아나 예전에 403으로 막혔던 푸시가 정상 동작했고, 이 화면(v4)이 저장소 main에 올라가 라이브 주소에 그대로 떴습니다. 이제 파일만 고치면 제가 바로 배포합니다."
+    },
+    {
+      "level": "good",
       "badge": "복구",
       "text": "Gmail 수신 복구 — 용량 14.8GB / 15GB (여유 약 200MB)",
       "date": "",
@@ -395,12 +392,12 @@
     "boss": {
       "emoji": "👔",
       "name": "재민 사장",
-      "caption": "결재 대기 4 · 지시 7건",
+      "caption": "결재 대기 3 · 지시 7건",
       "progress": [
-        4,
+        3,
         7
       ],
-      "progressLabel": "결재 4 / 7"
+      "progressLabel": "결재 3 / 7"
     },
     "chief": {
       "emoji": "👑",
@@ -749,6 +746,14 @@
     ]
   },
   "board": [
+    {
+      "id": "b28",
+      "status": "done",
+      "title": "Pickle GitHub 앱 일시정지 해제 — v4 라이브 배포",
+      "dept": "시스템",
+      "time": "19:57",
+      "detail": "쓰기 권한 복구 · main 푸시 완료 · GitHub Pages v4 반영 확인"
+    },
     {
       "id": "b26",
       "status": "done",
