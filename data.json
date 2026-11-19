@@ -475,24 +475,24 @@
     "boss": {
       "emoji": "👔",
       "name": "사장님",
-      "caption": "결재 대기 3 · 지시 7건",
+      "caption": "결재 대기 2 · 지시 7건",
       "progress": [
-        3,
+        2,
         7
       ],
-      "progressLabel": "결재 3 / 7"
+      "progressLabel": "결재 2 / 7"
     },
     "chief": {
       "emoji": "👑",
       "name": "맥미니 본부장",
       "status": "가동 중",
       "tone": "green",
-      "caption": "오늘 처리 9건 · 1실 6그룹 지휘",
+      "caption": "오늘 처리 13건 · 1실 6그룹 + 법무팀 지휘",
       "progress": [
         7,
         7
       ],
-      "progressLabel": "7 / 7 조직"
+      "progressLabel": "1실 6그룹 · 고문 6인"
     },
     "office": {
       "id": "wealth",
