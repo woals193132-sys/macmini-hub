@@ -1448,8 +1448,9 @@
   /* ---------- data ---------- */
   function load(bust){
     if (window.__INLINE_DATA__) { render(); return Promise.resolve(DATA); }
-    var url = "data.json" + (bust ? "?t=" + Date.now() : "");
-    return fetch(url, { cache: bust ? "no-store" : "default" })
+    // 배포 직후 CDN 캐시(최대 10분) 때문에 옛 데이터가 뜨는 일을 막으려고 항상 새로 받습니다
+    var url = "data.json?t=" + Date.now() + (bust ? "&r=1" : "");
+    return fetch(url, { cache: "no-store" })
       .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function(j){ DATA = j; render(); return j; })
       .catch(function(e){
