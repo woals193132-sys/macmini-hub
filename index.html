@@ -1093,12 +1093,13 @@
     var s = d.subscription;
     if (!s) return;
     var sc = s.score || {}, ca = s.cash || {};
-    var dd = dday(s.due);
-    $("#subAt").textContent = dd ? (dd.d === 0 ? "오늘 " + (s.dueAt || "") + " 마감" : dd.txt + (s.dueAt ? " " + s.dueAt : "")) : "";
+    var rej = s.status === "rejected";
+    var dd = rej ? null : dday(s.due);
+    $("#subAt").textContent = rej ? (s.statusLabel || "반려 완료") : (dd ? (dd.d === 0 ? "오늘 " + (s.dueAt || "") + " 마감" : dd.txt + (s.dueAt ? " " + s.dueAt : "")) : "");
     var pct = Math.round((sc.total || 0) / (sc.max || 84) * 100);
     $("#sub").innerHTML =
       '<div class="stoph"><div class="stname">' + esc(s.name) + '</div>' +
-        (dd ? '<span class="dd ' + dd.cls + '">' + dd.txt + '</span>' : '') + '</div>' +
+        (rej ? '<span class="dd past">' + esc(s.statusLabel || "반려 완료") + '</span>' : (dd ? '<span class="dd ' + dd.cls + '">' + dd.txt + '</span>' : '')) + '</div>' +
       '<div class="stsub">' + esc(s.type) + '</div>' +
       '<div class="xstrip" style="margin-top:9px">' +
         '<div class="xcell"><div class="xk">예상 가점 · 민간분양 환산</div>' +
@@ -1116,7 +1117,7 @@
         '<div class="srow"><span>월 임대료</span><b>' + esc(ca.rent) + '</b><em>관리비 별도</em></div>' +
         '<div class="srow"><span>계약금</span><b>' + esc(ca.first) + '</b><em>보증금 10%</em></div>' +
       '</div>' +
-      '<div class="hint"><b>판정</b> · ' + esc(s.verdict) + ' ' + esc(ca.note) + '</div>';
+      '<div class="hint"><b>' + (rej ? "반려" : "판정") + '</b> · ' + esc(s.note ? s.note + " " : "") + esc(s.verdict) + ' ' + esc(ca.note) + '</div>';
   }
 
   /* ---------- 연간 고정 부수입 로드맵 ---------- */

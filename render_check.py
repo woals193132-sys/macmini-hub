@@ -136,7 +136,7 @@ var __OUT = (function(){
   out["adv.pairsAll"] = pairs.every(function(p){ return el("#advisors").innerHTML.indexOf(p) >= 0; });
   out["loop.steps"] = (el("#loop").innerHTML.match(/class="lstep"/g) || []).length;
   out["loop.items"] = (el("#loop").innerHTML.match(/class="fbrow"/g) || []).length;
-  out["office.teams"] = (el("#office").innerHTML.match(/gchip/g) || []).length;
+  out["sub.rejected"] = el("#sub").innerHTML.indexOf("반려 완료") >= 0;
 
   /* --- 반려한 청약 건이 대기·알림에 남아 있지 않은지 --- */
   out["decisions.count"] = (el("#decisions").innerHTML.match(/class="dnum"/g) || []).length;

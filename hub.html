@@ -2547,8 +2547,8 @@
   "subscription": {
     "name": "화곡역 보눔하우스 705호",
     "type": "청년안심주택 민간임대 · 일반공급 · 전용 14.93㎡",
-    "due": "2026-11-19",
-    "dueAt": "18:00",
+    "due": "",
+    "dueAt": "",
     "score": {
       "total": 20,
       "max": 84,
@@ -2578,7 +2578,10 @@
       "first": "495만",
       "note": "서울시 청년주택 주거비 지원 최대 50% 무이자(단지 안내문 2020년 기준) · 계약 전 SH 확인 필요"
     },
-    "verdict": "가점제 민간분양은 84점 만점에 20점이라 불리합니다. 13년 통장은 추첨·소득요건형에서 강점이라 청년안심·행복주택 공고를 우선 봅니다."
+    "verdict": "가점제 민간분양은 84점 만점에 20점이라 불리합니다. 13년 통장은 추첨·소득요건형에서 강점이라 청년안심·행복주택 공고를 우선 봅니다.",
+    "status": "rejected",
+    "statusLabel": "반려 완료 · 11/19",
+    "note": "사장님 판단으로 신청하지 않았습니다. 같은 단지 재공고가 나오면 실투입금 비교표로 다시 판정합니다."
   },
   "roadmap": {
     "total": "100만+",
@@ -2966,12 +2969,13 @@
     var s = d.subscription;
     if (!s) return;
     var sc = s.score || {}, ca = s.cash || {};
-    var dd = dday(s.due);
-    $("#subAt").textContent = dd ? (dd.d === 0 ? "오늘 " + (s.dueAt || "") + " 마감" : dd.txt + (s.dueAt ? " " + s.dueAt : "")) : "";
+    var rej = s.status === "rejected";
+    var dd = rej ? null : dday(s.due);
+    $("#subAt").textContent = rej ? (s.statusLabel || "반려 완료") : (dd ? (dd.d === 0 ? "오늘 " + (s.dueAt || "") + " 마감" : dd.txt + (s.dueAt ? " " + s.dueAt : "")) : "");
     var pct = Math.round((sc.total || 0) / (sc.max || 84) * 100);
     $("#sub").innerHTML =
       '<div class="stoph"><div class="stname">' + esc(s.name) + '</div>' +
-        (dd ? '<span class="dd ' + dd.cls + '">' + dd.txt + '</span>' : '') + '</div>' +
+        (rej ? '<span class="dd past">' + esc(s.statusLabel || "반려 완료") + '</span>' : (dd ? '<span class="dd ' + dd.cls + '">' + dd.txt + '</span>' : '')) + '</div>' +
       '<div class="stsub">' + esc(s.type) + '</div>' +
       '<div class="xstrip" style="margin-top:9px">' +
         '<div class="xcell"><div class="xk">예상 가점 · 민간분양 환산</div>' +
@@ -2989,7 +2993,7 @@
         '<div class="srow"><span>월 임대료</span><b>' + esc(ca.rent) + '</b><em>관리비 별도</em></div>' +
         '<div class="srow"><span>계약금</span><b>' + esc(ca.first) + '</b><em>보증금 10%</em></div>' +
       '</div>' +
-      '<div class="hint"><b>판정</b> · ' + esc(s.verdict) + ' ' + esc(ca.note) + '</div>';
+      '<div class="hint"><b>' + (rej ? "반려" : "판정") + '</b> · ' + esc(s.note ? s.note + " " : "") + esc(s.verdict) + ' ' + esc(ca.note) + '</div>';
   }
 
   /* ---------- 연간 고정 부수입 로드맵 ---------- */
