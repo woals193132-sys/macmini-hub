@@ -138,9 +138,19 @@ var __OUT = (function(){
   out["legal.today"] = el("#legal").innerHTML.indexOf("개구리 소년") >= 0;
   out["legal.advisorLine"] = el("#legal").innerHTML.indexOf("고문단 6인") >= 0;
   out["adv.cards"] = (el("#advisors").innerHTML.match(/class="adv"/g) || []).length;
-  var pairs = ["금융·투자사업본부", "뉴미디어·IP사업본부", "라이프·웰니스사업본부", "시스템·R", "대외협력본부", "자산·리스크감사실", "법무·준법감시실"];
-  out["adv.pairsAll"] = pairs.every(function(p){ return el("#advisors").innerHTML.indexOf(p) >= 0; });
-  out["adv.crossCheck"] = el("#advisors").innerHTML.indexOf("경영기획실") >= 0;
+  var pairs = ["금융·투자사업본부", "뉴미디어·IP사업본부", "라이프·웰니스사업본부", "시스템·R&D사업본부", "자산·리스크감사실", "법무·준법감시실"];
+  var advHtml = el("#advisors").innerHTML.replace(/&amp;/g, "&");
+  out["adv.pairsAll"] = pairs.every(function(p){ return advHtml.indexOf(p) >= 0; });
+  out["adv.crossCheck"] = advHtml.indexOf("경영기획·신사업실") >= 0;
+  /* v10.2: 본부·팀 명칭 통일 — 새 이름이 전부 떠 있고 옛 이름은 남지 않았는지 (상세 시트 모은 뒤 맨 끝에서 판정) */
+  var newTeams = ["준법검수팀", "신사업발굴팀", "주식운용팀", "청약·부동산운용팀", "리셀·프로모션팀",
+    "쇼츠기획팀", "쇼츠제작팀", "이모티콘제작팀", "인스타툰제작팀", "디지털굿즈팀",
+    "일상·주거관리팀", "수영강습팀", "피트니스팀", "어학스피킹팀", "자격증취득팀",
+    "플랫폼UX·자동화팀", "대외협력·채널팀", "모니터링·리포팅팀"];
+  var oldTeams = ["호러트래커 소재·기획팀", "호러트래커 제작·편집팀", "이모티콘·스티커팀", "인스타툰팀",
+    "디지털 굿즈팀", "일상·주거팀", "수영팀", "헬스팀", "영어 스피킹팀", "자격증팀",
+    "허브 UI/UX·자동화 엔진팀", "외부 채널·네트워크팀", "법무·컴플라이언스팀", "아이디어뱅크·부업발굴팀"];
+  var __sheetHTML = "";
   out["loop.steps"] = (el("#loop").innerHTML.match(/class="lstep"/g) || []).length;
   out["loop.items"] = (el("#loop").innerHTML.match(/class="fbrow"/g) || []).length;
   out["sub.rejected"] = el("#sub").innerHTML.indexOf("반려 완료") >= 0;
@@ -194,6 +204,7 @@ var __OUT = (function(){
   out["staffCount"] = staffCards.length;
   for (var s = 0; s < staffCards.length; s++){
     fire(staffCards[s], "click");
+    __sheetHTML += el("#sheetTeams").innerHTML;
     out["sheet:staff" + s] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
       " || " + ((el("#sheetTeams").innerHTML.match(/steams-head">([^<]*)/) || ["", "—"])[1] || "—");
     if (s === 0) out["sheet:staffDetails"] = el("#sheetList").innerHTML.slice(0, 60);
@@ -202,9 +213,15 @@ var __OUT = (function(){
   out["deptCount"] = groups.length;
   for (var i = 0; i < groups.length; i++){
     fire(groups[i], "click");
+    __sheetHTML += el("#sheetTeams").innerHTML;
     out["sheet:group" + i] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
       " || " + ((el("#sheetTeams").innerHTML.match(/steams-head">([^<]*)/) || ["", ""])[1] || "—");
   }
+  var dh = (el("#depts").innerHTML + el("#staff").innerHTML + __sheetHTML).replace(/&amp;/g, "&");
+  out["names.newTeamsMissing"] = newTeams.filter(function(n){ return dh.indexOf(n) < 0; });
+  out["names.oldTeamsLeft"] = oldTeams.filter(function(n){ return dh.indexOf(n) >= 0; });
+  out["names.divisionsAll"] = ["금융·투자사업본부", "뉴미디어·IP사업본부", "라이프·웰니스사업본부", "시스템·R&D사업본부"]
+    .every(function(n){ return el("#depts").innerHTML.replace(/&amp;/g, "&").indexOf(n) >= 0; });
   return out;
 })();
 """
