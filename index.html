@@ -1451,6 +1451,15 @@
       '<div class="ld">' + esc(f.week || "") + ' · 수영 다음 날 상체는 볼륨 -20%, 수영 직후 24시간 내 고강도 당기기는 쉼</div>';
     }
 
+    if ((f.plan || []).length){
+      html += '<div class="lrow"><span class="lico">📋</span><div class="lb">' +
+        '<div class="lt">3분할 구성<span class="dd">11/19 개정</span></div>' +
+        f.plan.map(function(p){
+          return '<div class="ld" style="margin-top:3px"><b style="color:var(--ink-2)">' + esc(p.d || "") + '</b> ' + esc(p.v || "") + '</div>';
+        }).join("") +
+      '</div></div>';
+    }
+
     if ((f.correct || []).length){
       html += '<div class="lrow"><span class="lico">🧘</span><div class="lb">' +
         '<div class="lt">세션 전 10~12분 교정 3축</div>' +
