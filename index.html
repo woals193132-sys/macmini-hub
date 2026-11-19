@@ -201,6 +201,17 @@
   .office .osstate{margin-left:auto; flex:0 0 auto; font-size:9.3px; font-weight:800; padding:2px 6px; border-radius:6px; border:1px solid var(--hair-2); color:var(--muted); white-space:nowrap}
   .office .osstate.green{color:#0e9f6e; border-color:rgba(14,159,110,.35); background:rgba(14,159,110,.08)}
   .office .osstate.amber{color:#b07300; border-color:rgba(216,137,0,.35); background:rgba(243,180,85,.12)}
+  .staffgrid{display:grid; gap:9px}
+
+  /* ============ governance (지배구조 4중 구조) ============ */
+  .govcard{padding:13px 14px}
+  .govcard .gvmodel{font-size:9.4px; font-weight:850; letter-spacing:.14em; text-transform:uppercase; color:var(--gold)}
+  .govcard .gvnote{font-size:11px; color:var(--muted); font-weight:650; line-height:1.5; letter-spacing:-.012em; margin-top:5px}
+  .govcard .gvl{display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:11px}
+  .govcard .gvlane{background:var(--card-2); border:1px solid var(--hair-2); border-radius:11px; padding:9px 10px}
+  .govcard .gvk{font-size:9.2px; font-weight:800; letter-spacing:.1em; color:var(--faint); text-transform:uppercase}
+  .govcard .gvv{font-size:14px; font-weight:850; letter-spacing:-.035em; margin-top:2px; line-height:1.2}
+  .govcard .gvn{font-size:10.2px; color:var(--muted); font-weight:650; margin-top:3px; line-height:1.4; letter-spacing:-.01em}
 
   /* ============ advisors (고문단) ============ */
   .advgrid{display:grid; grid-template-columns:1fr; gap:9px}
@@ -813,18 +824,18 @@
       <div class="banners" id="banners"></div>
       <div class="kpis" id="kpis"></div>
       <div class="card flow" id="flow"></div>
-      <div class="sec"><span>🧭</span><h2>고문단 · 조직 1:1 전담 자문</h2><div class="rule"></div><span class="cnt" id="advCnt"></span></div>
+      <div class="sec"><span>🏛️</span><h2>지배구조 · 지휘·견제·실행·자문</h2><div class="rule"></div><span class="cnt" id="govCnt"></span></div>
+      <div class="card govcard" id="gov"></div>
+      <div class="sec"><span>🧩</span><h2>CEO 직속 컨트롤타워 · 스태프 3실</h2><div class="rule"></div><span class="cnt" id="staffCnt"></span></div>
+      <div class="staffgrid" id="staff"></div>
+      <div class="sec"><span>🧾</span><h2>자산·리스크감사실 성과 감사 보드</h2><div class="rule"></div><span class="cnt" id="auditCnt"></span></div>
+      <div class="card audit" id="audit"></div>
+      <div class="sec"><span>🏢</span><h2>핵심 사업본부 4개 · 산하 16팀</h2><div class="rule"></div><span class="cnt" id="deptCnt"></span></div>
+      <div class="grid" id="depts"></div>
+      <div class="sec"><span>🧭</span><h2>전문자문단 · 본부·스태프 1:1 전담</h2><div class="rule"></div><span class="cnt" id="advCnt"></span></div>
       <div class="card loopcard" id="loop"></div>
       <div class="advgrid" id="advisors"></div>
-      <div class="sec"><span>🏛️</span><h2>직속 1실 · 감사·평가</h2><div class="rule"></div><span class="cnt" id="officeCnt"></span></div>
-      <button class="office" id="office" aria-label="자산형성실 상세"></button>
-      <div class="sec"><span>⚖️</span><h2>법무·컴플라이언스팀 · 감사·법무 라인</h2><div class="rule"></div><span class="cnt" id="legalCnt"></span></div>
-      <button class="office legal" id="legalCard" aria-label="법무·컴플라이언스팀 상세"></button>
-      <div class="sec"><span>🧾</span><h2>자산형성실 성과 감사 보드</h2><div class="rule"></div><span class="cnt" id="auditCnt"></span></div>
-      <div class="card audit" id="audit"></div>
-      <div class="sec"><span>🏢</span><h2>산하 6개 그룹</h2><div class="rule"></div><span class="cnt" id="deptCnt"></span></div>
-      <div class="grid" id="depts"></div>
-      <p class="foot">카드를 누르면 조직 상세가 열립니다<br>1실 6그룹 + 법무·컴플라이언스팀 + 고문단 6인 · 하위 팀 드릴다운</p>
+      <p class="foot">카드를 누르면 조직 상세가 열립니다<br>스태프 3실 + 사업본부 4개(16팀) + 고문 6인 · 하위 팀 드릴다운</p>
     </section>
 
     <!-- ============ 3탭 · 작업 보드 ============ -->
@@ -1430,45 +1441,44 @@
     }
     $("#flow").innerHTML = node(b, false) + '<div class="arrow">▶</div>' + node(c, true);
 
-    var of = d.org.office;
-    if (of){
-      var opct = Math.round(of.progress[0] / of.progress[1] * 100);
-      $("#office").innerHTML =
-        '<div class="oh"><span class="oicon">' + of.emoji + '</span><div class="otext">' +
-          '<div class="oname">' + esc(of.name) + '</div>' +
-          '<div class="oen">' + esc(of.en || "") + '</div>' +
-          '<div class="ostat"><span class="dot ' + esc(of.tone) + '"></span>' + esc(of.status) + '</div>' +
-        '</div></div>' +
-        (of.badge ? '<div class="obadge"><span class="obadge-k">' + esc(of.badge) + '</span>' +
-          (of.badgeLabel ? '<span class="obadge-v">' + esc(of.badgeLabel) + '</span>' : '') + '</div>' : '') +
-        '<div class="oline">' + esc(of.line) + '</div>' +
-        '<div class="bar"><i class="' + esc(of.barTone) + '" style="width:' + opct + '%"></i></div>' +
-        '<div class="barlabel">' + esc(of.barLabel) + '</div>';
-      on($("#office"), "click", function(){ openEntity(of); });
-      $("#officeCnt").textContent = of.barLabel;
+    var gov = d.org.gov;
+    if (gov && $("#gov")){
+      $("#gov").innerHTML =
+        (gov.model ? '<div class="gvmodel">' + esc(gov.model) + '</div>' : '') +
+        (gov.note ? '<div class="gvnote">' + esc(gov.note) + '</div>' : '') +
+        '<div class="gvl">' + (gov.lanes || []).map(function(l){
+          return '<div class="gvlane"><div class="gvk">' + esc(l.k) + '</div>' +
+            '<div class="gvv c-' + esc(l.tone) + '">' + esc(l.v) + '</div>' +
+            '<div class="gvn">' + esc(l.n) + '</div></div>';
+        }).join("") + '</div>';
+      if ($("#govCnt")) $("#govCnt").textContent = (gov.lanes || []).length + "개 축";
     }
 
-    var lg = d.org.legal;
-    if (lg && $("#legalCard")){
-      var lpct = Math.round(lg.progress[0] / lg.progress[1] * 100);
-      var scp = (lg.scope || []).map(function(x){
-        return '<div class="osrow"><span class="osk">' + esc(x.k) + '</span><span class="osv">' + esc(x.v) + '</span>' +
-          '<span class="osstate ' + esc(x.tone) + '">' + esc(x.state) + '</span></div>';
+    var st = (d.org.staff || []);
+    if ($("#staff")){
+      $("#staff").innerHTML = st.map(function(s, i){
+        var spct = Math.round(s.progress[0] / s.progress[1] * 100);
+        var scp = (s.scope || []).map(function(x){
+          return '<div class="osrow"><span class="osk">' + esc(x.k) + '</span><span class="osv">' + esc(x.v) + '</span>' +
+            '<span class="osstate ' + esc(x.tone) + '">' + esc(x.state) + '</span></div>';
+        }).join("");
+        return '<button class="office" data-st="' + i + '" aria-label="' + esc(s.name) + ' 상세">' +
+          '<div class="oh"><span class="oicon">' + s.emoji + '</span><div class="otext">' +
+            '<div class="oname">' + esc(s.name) + '</div>' +
+            '<div class="oen">' + esc(s.en || "") + '</div>' +
+            '<div class="ostat"><span class="dot ' + esc(s.tone) + '"></span>' + esc(s.status) + '</div>' +
+          '</div></div>' +
+          (s.badge ? '<div class="obadge"><span class="obadge-k">' + esc(s.badge) + '</span>' +
+            (s.badgeLabel ? '<span class="obadge-v">' + esc(s.badgeLabel) + '</span>' : '') + '</div>' : '') +
+          '<div class="oline">' + esc(s.line) + '</div>' +
+          (scp ? '<div class="oscope">' + scp + '</div>' : '') +
+          '<div class="bar"><i class="' + esc(s.barTone) + '" style="width:' + spct + '%"></i></div>' +
+          '<div class="barlabel">' + esc(s.barLabel) + '</div></button>';
       }).join("");
-      $("#legalCard").innerHTML =
-        '<div class="oh"><span class="oicon">' + lg.emoji + '</span><div class="otext">' +
-          '<div class="oname">' + esc(lg.name) + '</div>' +
-          '<div class="oen">' + esc(lg.en || "") + '</div>' +
-          '<div class="ostat"><span class="dot ' + esc(lg.tone) + '"></span>' + esc(lg.status) + '</div>' +
-        '</div></div>' +
-        (lg.badge ? '<div class="obadge"><span class="obadge-k">' + esc(lg.badge) + '</span>' +
-          (lg.badgeLabel ? '<span class="obadge-v">' + esc(lg.badgeLabel) + '</span>' : '') + '</div>' : '') +
-        '<div class="oline">' + esc(lg.line) + '</div>' +
-        (scp ? '<div class="oscope">' + scp + '</div>' : '') +
-        '<div class="bar"><i class="' + esc(lg.barTone) + '" style="width:' + lpct + '%"></i></div>' +
-        '<div class="barlabel">' + esc(lg.barLabel) + '</div>';
-      on($("#legalCard"), "click", function(){ openEntity(lg); });
-      $("#legalCnt").textContent = lg.barLabel;
+      Array.prototype.forEach.call(document.querySelectorAll(".office"), function(el){
+        el.addEventListener("click", function(){ openEntity(st[+el.dataset.st]); });
+      });
+      if ($("#staffCnt")) $("#staffCnt").textContent = st.length + "실";
     }
 
     var adv = (d.org.advisors || []);

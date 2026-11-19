@@ -101,11 +101,11 @@ POST = r"""
 var __OUT = (function(){
   var out = {};
   ["#service","#todayLabel","#footAt","#clock","#decCnt","#mktAt","#qpos","#ppos",
-   "#deptCnt","#officeCnt","#trialCnt","#quizCnt","#moneyCnt","#opCnt",
+   "#deptCnt","#staffCnt","#govCnt","#trialCnt","#quizCnt","#moneyCnt","#opCnt",
    "#engineAt","#subAt","#rmCnt","#auditCnt"].forEach(function(s){
     out[s] = el(s).textContent;
   });
-  ["#hero","#market","#decisions","#life","#banners","#kpis","#flow","#office","#depts",
+  ["#hero","#market","#decisions","#life","#banners","#kpis","#flow","#gov","#staff","#depts",
    "#bSum","#opSum","#ops","#report","#alliance","#money",
    "#engine","#sub","#roadmap","#audit"].forEach(function(s){ out[s] = el(s).innerHTML; });
 
@@ -126,14 +126,21 @@ var __OUT = (function(){
     decision: el("#decisions").innerHTML.indexOf("호러트래커") >= 0
   };
 
-  /* --- v6: 법무팀 + 고문단 --- */
-  out["legal.cardName"] = el("#legalCard").innerHTML.indexOf("법무·컴플라이언스팀") >= 0;
-  out["legal.scopes"] = (el("#legalCard").innerHTML.match(/class="osrow"/g) || []).length;
+  /* --- v10: 대기업형 스태프·사업부 체제 --- */
+  var sh = el("#staff").innerHTML;
+  out["staff.cards"] = (sh.match(/class="office"/g) || []).length;
+  out["staff.names"] = ["자산·리스크감사실", "법무·준법감시실", "경영기획·신사업실"].every(function(n){ return sh.indexOf(n) >= 0; });
+  out["staff.legalScopes"] = (sh.match(/class="osrow"/g) || []).length;
+  out["gov.lanes"] = (el("#gov").innerHTML.match(/class="gvlane"/g) || []).length;
+  out["gov.model"] = el("#gov").innerHTML.indexOf("스태프·사업부 체제") >= 0;
+  out["dept.divisions"] = (el("#depts").innerHTML.match(/class="dept/g) || []).length;
+  out["dept.teamChips"] = (el("#depts").innerHTML.match(/class="gchip"/g) || []).length;
   out["legal.today"] = el("#legal").innerHTML.indexOf("개구리 소년") >= 0;
   out["legal.advisorLine"] = el("#legal").innerHTML.indexOf("고문단 6인") >= 0;
   out["adv.cards"] = (el("#advisors").innerHTML.match(/class="adv"/g) || []).length;
-  var pairs = ["재테크그룹", "뉴미디어스튜디오", "라이프매니지먼트그룹", "시스템·대외협력그룹", "애슬레틱", "자산형성실"];
+  var pairs = ["금융·투자사업본부", "뉴미디어·IP사업본부", "라이프·웰니스사업본부", "시스템·R", "대외협력본부", "자산·리스크감사실", "법무·준법감시실"];
   out["adv.pairsAll"] = pairs.every(function(p){ return el("#advisors").innerHTML.indexOf(p) >= 0; });
+  out["adv.crossCheck"] = el("#advisors").innerHTML.indexOf("경영기획실") >= 0;
   out["loop.steps"] = (el("#loop").innerHTML.match(/class="lstep"/g) || []).length;
   out["loop.items"] = (el("#loop").innerHTML.match(/class="fbrow"/g) || []).length;
   out["sub.rejected"] = el("#sub").innerHTML.indexOf("반려 완료") >= 0;
@@ -183,9 +190,14 @@ var __OUT = (function(){
   out["phrase.speakToast"] = el("#toast").textContent;
 
   /* --- 조직 상세 시트 --- */
-  fire(el("#office"), "click");
-  out["sheet:office"] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
-    " || " + el("#sheetList").innerHTML.slice(0, 60);
+  var staffCards = document.querySelectorAll(".office");
+  out["staffCount"] = staffCards.length;
+  for (var s = 0; s < staffCards.length; s++){
+    fire(staffCards[s], "click");
+    out["sheet:staff" + s] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
+      " || " + ((el("#sheetTeams").innerHTML.match(/steams-head">([^<]*)/) || ["", "—"])[1] || "—");
+    if (s === 0) out["sheet:staffDetails"] = el("#sheetList").innerHTML.slice(0, 60);
+  }
   var groups = document.querySelectorAll(".dept");
   out["deptCount"] = groups.length;
   for (var i = 0; i < groups.length; i++){
@@ -193,8 +205,6 @@ var __OUT = (function(){
     out["sheet:group" + i] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
       " || " + ((el("#sheetTeams").innerHTML.match(/steams-head">([^<]*)/) || ["", ""])[1] || "—");
   }
-  fire(el("#legalCard"), "click");
-  out["sheet:legal"] = el("#sheetTitle").innerHTML + " || details=" + el("#sheetList").innerHTML.length;
   return out;
 })();
 """
