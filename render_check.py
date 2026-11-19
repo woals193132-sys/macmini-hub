@@ -138,6 +138,18 @@ var __OUT = (function(){
   out["loop.items"] = (el("#loop").innerHTML.match(/class="fbrow"/g) || []).length;
   out["sub.rejected"] = el("#sub").innerHTML.indexOf("반려 완료") >= 0;
 
+  /* --- v7: 사이클 지수투자 판정 --- */
+  var cy = el("#cycle").innerHTML;
+  out["cycle.phase"] = ((cy.match(/class="cp1">([^<]*)/) || ["", ""])[1] || "");
+  out["cycle.score"] = ((cy.match(/class="cp2">([^<]*)/) || ["", ""])[1] || "");
+  out["cycle.rows"] = (cy.match(/class=\"cycrow\"/g) || []).length;
+  out["cycle.axes"] = (cy.match(/class=\"xcell\"/g) || []).length;
+  out["cycle.action"] = cy.indexOf("오늘의 권고") >= 0;
+  out["cycle.counter"] = cy.indexOf("고문 반론") >= 0;
+  out["cycle.gate"] = cy.indexOf("1차선") >= 0;
+  out["cycle.legal"] = cy.indexOf("자동 주문이 아닙니다") >= 0;
+  out["cycle.at"] = el("#cycAt").textContent;
+
   /* --- 반려한 청약 건이 대기·알림에 남아 있지 않은지 --- */
   out["decisions.count"] = (el("#decisions").innerHTML.match(/class="dnum"/g) || []).length;
   out["decisions.bonum"] = el("#decisions").innerHTML.indexOf("보눔") >= 0;

@@ -520,6 +520,37 @@
     font-variant-numeric:tabular-nums; margin-top:1px}
 
   /* ============ 재테크 실전 엔진 (v5) ============ */
+  /* 사이클 지수투자 판정 */
+  .cphase{display:flex; flex-direction:column; gap:2px; padding:11px 13px 12px; border-radius:13px;
+    border:1px solid var(--hair-2); background:var(--card-2)}
+  .cphase .cp1{font-size:17px; font-weight:860; letter-spacing:-.05em; line-height:1.2}
+  .cphase .cp2{font-size:9.8px; font-weight:750; color:var(--muted); font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+  .cphase.green{background:var(--green-soft); border-color:rgba(14,159,110,.26)} .cphase.green .cp1{color:var(--green)}
+  .cphase.amber{background:var(--amber-soft); border-color:rgba(185,118,0,.24)} .cphase.amber .cp1{color:var(--amber)}
+  .cphase.blue{background:var(--blue-soft); border-color:rgba(37,99,235,.22)} .cphase.blue .cp1{color:var(--blue)}
+  .cphase.red{background:var(--red-soft); border-color:rgba(217,45,58,.22)} .cphase.red .cp1{color:var(--red)}
+  .cbar{position:relative; height:8px; margin-top:14px; border-radius:99px;
+    background:linear-gradient(90deg, rgba(217,45,58,.16), rgba(185,118,0,.14) 40%, rgba(37,99,235,.14) 60%, rgba(14,159,110,.18))}
+  .cbar .cfill{position:absolute; left:0; top:0; bottom:0; border-radius:99px;
+    background:linear-gradient(90deg, rgba(79,70,229,.30), var(--brand))}
+  .cbar .cpin{position:absolute; top:50%; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%;
+    background:var(--card); border:3px solid var(--brand); box-shadow:0 1px 5px rgba(17,22,41,.28)}
+  .cscale{display:grid; grid-template-columns:repeat(4,1fr); margin-top:6px; font-size:8.6px; font-weight:750;
+    color:var(--faint); letter-spacing:-.02em; text-align:center; font-variant-numeric:tabular-nums}
+  .ctable{margin-top:11px; border-top:1px solid var(--hair-2)}
+  .cycrow{display:grid; grid-template-columns:62px 1fr 54px 54px; align-items:center; gap:6px;
+    padding:6px 0; border-bottom:1px solid var(--hair-2); font-variant-numeric:tabular-nums}
+  .cycrow:last-child{border-bottom:0}
+  .cycrow .cn{font-size:10.4px; font-weight:800; color:var(--muted); letter-spacing:-.02em;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .cycrow .cv{font-size:11.6px; font-weight:840; letter-spacing:-.03em; text-align:right}
+  .cycrow em{font-style:normal; font-size:10px; font-weight:800; text-align:right}
+  .cycrow .cd{font-size:9.8px; font-weight:750; color:var(--faint); text-align:right}
+  .cact{margin-top:10px; padding:10px 12px; border-radius:12px; background:var(--brand-soft);
+    border:1px solid var(--brand-line); font-size:11px; line-height:1.5; color:var(--ink-2);
+    letter-spacing:-.012em; word-break:keep-all}
+  .cact b{display:block; font-size:9.4px; font-weight:850; color:var(--brand); margin-bottom:3px}
+
   .xstrip{display:grid; grid-template-columns:1fr 1fr; gap:7px}
   .xcell{min-width:0; padding:9px 11px 10px; border:1px solid var(--hair-2); border-radius:12px; background:var(--card-2)}
   .xcell .xk{font-size:9.6px; font-weight:800; color:var(--muted); letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
@@ -703,6 +734,14 @@
             <span class="mmeta" id="mktAt"></span>
           </div>
           <div class="mbody" id="market"></div>
+        </div>
+
+        <div class="mod">
+          <div class="modhead">
+            <span class="mico">🧭</span><span class="mtitle">사이클 지수투자 판정 · 국면 보드</span>
+            <span class="mmeta" id="cycAt"></span>
+          </div>
+          <div class="mbody" id="cycle"></div>
         </div>
 
         <div class="mod">
@@ -1033,6 +1072,7 @@
     }).join("") +
     (dec.length ? '<div class="actline">🗣 채팅에 "1번 승인" 한마디면 바로 처리합니다 · "보류"라고 하시면 내립니다</div>' : "");
 
+    renderCycle(t);
     renderEngine(t);
     renderSub(d);
     renderStudy();
@@ -1040,6 +1080,42 @@
     renderLegalCheck(t);
 
     $("#todayLabel").textContent = t.dateLabel || "";
+  }
+
+  /* ---------- 사이클 지수투자 판정 ---------- */
+  function renderCycle(t){
+    var c = t.cycle;
+    if (!c) return;
+    $("#cycAt").textContent = c.at || "";
+    var score = Math.max(0, Math.min(100, +c.score || 0));
+    var tone = c.tone || "blue";
+    var axes = (c.axes || []).map(function(a){
+      return '<div class="xcell"><div class="xk">' + esc(a.k) + ' 축</div>' +
+        '<div class="xv">' + esc(a.v) + '<small>/100</small></div>' +
+        '<div class="xn">' + esc(a.note || "") + '</div></div>';
+    }).join("");
+    var rows = (c.rows || []).map(function(r){
+      return '<div class="cycrow"><span class="cn">' + esc(r.n) + '</span>' +
+        '<b class="cv">' + esc(r.v) + '</b>' +
+        '<em class="' + updown(r.c) + '">' + esc(r.c) + '</em>' +
+        '<span class="cd">' + esc(r.dd || "-") + '</span></div>';
+    }).join("");
+    var exits = (c.exits || []).join(" / ");
+    $("#cycle").innerHTML =
+      '<div class="cphase ' + esc(tone) + '"><div class="cp1">' + esc(c.phase) + '</div>' +
+        '<div class="cp2">' + esc(c.scoreNote || "") + '</div></div>' +
+      '<div class="cbar"><div class="cfill" style="width:' + score.toFixed(1) + '%"></div>' +
+        '<span class="cpin" style="left:' + score.toFixed(1) + '%"></span></div>' +
+      '<div class="cscale"><span>과열·익절</span><span>중립·관망</span><span>조정·대기</span><span>공포·매수</span></div>' +
+      '<div class="xstrip" style="margin-top:11px">' + axes + '</div>' +
+      '<div class="ctable">' + rows + '</div>' +
+      (c.gate ? '<div class="gnext"><span class="gk"></span>' + esc(c.gate) + '</div>' : '') +
+      '<div class="cact"><b>오늘의 권고</b>' + esc(c.action) + '</div>' +
+      '<div class="hint"><b>고문 반론</b> · ' + esc(c.counter || "") + '</div>' +
+      (exits ? '<div class="chipsline"><span class="chk">분할 익절</span>' + exits.split(" / ").map(function(e){
+        return '<span class="ch"><span class="d2"></span>' + esc(e) + '</span>';
+      }).join("") + '</div>' : '') +
+      '<div class="mkn">' + esc(c.legal || "") + '</div>';
   }
 
   /* ---------- 재테크 실전 엔진 ---------- */

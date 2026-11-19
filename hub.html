@@ -520,6 +520,37 @@
     font-variant-numeric:tabular-nums; margin-top:1px}
 
   /* ============ 재테크 실전 엔진 (v5) ============ */
+  /* 사이클 지수투자 판정 */
+  .cphase{display:flex; flex-direction:column; gap:2px; padding:11px 13px 12px; border-radius:13px;
+    border:1px solid var(--hair-2); background:var(--card-2)}
+  .cphase .cp1{font-size:17px; font-weight:860; letter-spacing:-.05em; line-height:1.2}
+  .cphase .cp2{font-size:9.8px; font-weight:750; color:var(--muted); font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+  .cphase.green{background:var(--green-soft); border-color:rgba(14,159,110,.26)} .cphase.green .cp1{color:var(--green)}
+  .cphase.amber{background:var(--amber-soft); border-color:rgba(185,118,0,.24)} .cphase.amber .cp1{color:var(--amber)}
+  .cphase.blue{background:var(--blue-soft); border-color:rgba(37,99,235,.22)} .cphase.blue .cp1{color:var(--blue)}
+  .cphase.red{background:var(--red-soft); border-color:rgba(217,45,58,.22)} .cphase.red .cp1{color:var(--red)}
+  .cbar{position:relative; height:8px; margin-top:14px; border-radius:99px;
+    background:linear-gradient(90deg, rgba(217,45,58,.16), rgba(185,118,0,.14) 40%, rgba(37,99,235,.14) 60%, rgba(14,159,110,.18))}
+  .cbar .cfill{position:absolute; left:0; top:0; bottom:0; border-radius:99px;
+    background:linear-gradient(90deg, rgba(79,70,229,.30), var(--brand))}
+  .cbar .cpin{position:absolute; top:50%; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%;
+    background:var(--card); border:3px solid var(--brand); box-shadow:0 1px 5px rgba(17,22,41,.28)}
+  .cscale{display:grid; grid-template-columns:repeat(4,1fr); margin-top:6px; font-size:8.6px; font-weight:750;
+    color:var(--faint); letter-spacing:-.02em; text-align:center; font-variant-numeric:tabular-nums}
+  .ctable{margin-top:11px; border-top:1px solid var(--hair-2)}
+  .cycrow{display:grid; grid-template-columns:62px 1fr 54px 54px; align-items:center; gap:6px;
+    padding:6px 0; border-bottom:1px solid var(--hair-2); font-variant-numeric:tabular-nums}
+  .cycrow:last-child{border-bottom:0}
+  .cycrow .cn{font-size:10.4px; font-weight:800; color:var(--muted); letter-spacing:-.02em;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .cycrow .cv{font-size:11.6px; font-weight:840; letter-spacing:-.03em; text-align:right}
+  .cycrow em{font-style:normal; font-size:10px; font-weight:800; text-align:right}
+  .cycrow .cd{font-size:9.8px; font-weight:750; color:var(--faint); text-align:right}
+  .cact{margin-top:10px; padding:10px 12px; border-radius:12px; background:var(--brand-soft);
+    border:1px solid var(--brand-line); font-size:11px; line-height:1.5; color:var(--ink-2);
+    letter-spacing:-.012em; word-break:keep-all}
+  .cact b{display:block; font-size:9.4px; font-weight:850; color:var(--brand); margin-bottom:3px}
+
   .xstrip{display:grid; grid-template-columns:1fr 1fr; gap:7px}
   .xcell{min-width:0; padding:9px 11px 10px; border:1px solid var(--hair-2); border-radius:12px; background:var(--card-2)}
   .xcell .xk{font-size:9.6px; font-weight:800; color:var(--muted); letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
@@ -707,6 +738,14 @@
 
         <div class="mod">
           <div class="modhead">
+            <span class="mico">🧭</span><span class="mtitle">사이클 지수투자 판정 · 국면 보드</span>
+            <span class="mmeta" id="cycAt"></span>
+          </div>
+          <div class="mbody" id="cycle"></div>
+        </div>
+
+        <div class="mod">
+          <div class="modhead">
             <span class="mico">🏦</span><span class="mtitle">재테크 실전 엔진 · 대기·익절</span>
             <span class="mmeta" id="engineAt"></span>
           </div>
@@ -861,16 +900,16 @@
 <script>window.__INLINE_DATA__ = {
   "meta": {
     "title": "AI 본부 관제 허브",
-    "subtitle": "재테크 실전 엔진 · 법무·고문 라인",
+    "subtitle": "사이클 지수투자 판정 · 재테크 실전 엔진 · 법무·고문 라인",
     "owner": "사장님",
     "chief": "맥미니 본부장",
-    "updated": "2026-11-19T12:45:00+09:00",
+    "updated": "2026-11-19T12:54:40+09:00",
     "service": {
       "active": 10,
       "total": 10,
       "label": "정상"
     },
-    "version": "v6"
+    "version": "v7"
   },
   "today": {
     "date": "2026-11-19",
@@ -902,24 +941,24 @@
     "market": {
       "kospi": {
         "label": "코스피",
-        "value": "5,032.36",
-        "chg": "-35.08 (-0.69%)",
-        "drawdown": "-46.4%",
+        "value": "5,057.72",
+        "chg": "-9.72 (-0.19%)",
+        "drawdown": "-46.1%",
         "note": "6월 고점 9,385.59 대비",
-        "at": "10:58"
+        "at": "12:54"
       },
       "leverage": {
         "name": "KODEX 레버리지",
         "code": "122630",
-        "price": 53765,
-        "chg": "-635 (-1.17%)",
-        "at": "장중 10:58",
+        "price": 54375,
+        "chg": "-25 (-0.05%)",
+        "at": "장중 12:54",
         "open": 55265,
         "high": 55395,
         "low": 52170,
         "high52": 252500,
         "low52": 37815,
-        "drawdown": "-78.7%",
+        "drawdown": "-78.5%",
         "scale": [
           55395,
           37815
@@ -938,7 +977,7 @@
             "price": 40000
           }
         ],
-        "note": "3분할 매수 대기 · 1차선 50,000원까지 -7.0% · 한 번에 들어가지 않고 20~30%씩 나눠 담고 현금 여력은 남깁니다",
+        "note": "3분할 매수 대기 · 1차선 50,000원까지 -8.0% · 한 번에 들어가지 않고 20~30%씩 나눠 담고 현금 여력은 남깁니다",
         "parking": {
           "label": "대기 현금 파킹",
           "rate": "연 3.3~4.0%",
@@ -1255,7 +1294,79 @@
         "tone": "blue"
       }
     ],
-    "channelsNote": "구독 만료 D-7 — 대체 채널 2개 확보. 장전 브리핑은 11/26 이후에도 그대로 돌아갑니다."
+    "channelsNote": "구독 만료 D-7 — 대체 채널 2개 확보. 장전 브리핑은 11/26 이후에도 그대로 돌아갑니다.",
+    "cycle": {
+      "at": "11/19 12:54 갱신",
+      "phase": "공포·분할매수권",
+      "tone": "green",
+      "score": 65.2,
+      "scoreNote": "사이클 점수 65/100 · 높을수록 싸다",
+      "axes": [
+        {
+          "k": "밸류·낙폭",
+          "v": "71",
+          "note": "코스피 46.1% · 코스닥 46.4% · KODEX200 47.9%"
+        },
+        {
+          "k": "공포·심리",
+          "v": "57",
+          "note": "VIX 24.6 · DEFCON 2단계 · 환율 1,331"
+        }
+      ],
+      "rows": [
+        {
+          "n": "코스피",
+          "v": "5,057.72",
+          "c": "-0.19%",
+          "dd": "-46.1%"
+        },
+        {
+          "n": "코스닥",
+          "v": "659.36",
+          "c": "-0.52%",
+          "dd": "-46.4%"
+        },
+        {
+          "n": "KODEX 200",
+          "v": "79,405",
+          "c": "+0.01%",
+          "dd": "-47.9%"
+        },
+        {
+          "n": "레버리지",
+          "v": "54,375",
+          "c": "-0.05%",
+          "dd": "-78.5%"
+        },
+        {
+          "n": "S&P500",
+          "v": "7,323.63",
+          "c": "-0.23%",
+          "dd": ""
+        },
+        {
+          "n": "나스닥",
+          "v": "24,429.89",
+          "c": "+0.42%",
+          "dd": ""
+        },
+        {
+          "n": "SOX",
+          "v": "9,652.80",
+          "c": "+0.10%",
+          "dd": ""
+        }
+      ],
+      "gate": "1차선 50,000원까지 8.0%",
+      "action": "지수 ETF는 1차 비중의 1/3까지만 분할 시작할 수 있는 구간입니다. 레버리지는 1차선 미도달 시 추격 금지.",
+      "actionDetail": "레버리지 54,375원은 1차선 50,000원까지 8.0% 남았습니다 — 지수 ETF 1차 1/3과 레버리지 1차선 대기를 분리해서 봅니다. 익절은 진입가 기준 +15%(57,500원) / +25%(62,500원) 두 단계, 평단이 내려가면 익절가도 같이 내려 재계산합니다.",
+      "counter": "지수 46.1% 하락에 레버리지 78.5% 하락 — 원금 회복에 ETF +364% 필요. 같은 낙폭이면 KODEX 200·S&P·나스닥 쪽 복원력이 낫습니다.",
+      "exits": [
+        "+15% 57,500원",
+        "+25% 62,500원"
+      ],
+      "legal": "본인 포트폴리오 의사결정 참고용 계산입니다 · 투자 권유·자문·자동 주문이 아닙니다"
+    }
   },
   "alerts": [
     {
@@ -1922,6 +2033,14 @@
     }
   },
   "board": [
+    {
+      "id": "b-cycle",
+      "status": "done",
+      "title": "사이클 지수투자 판정 엔진 — 공포·분할매수권 (65점)",
+      "dept": "재테크",
+      "time": "12:54",
+      "detail": "코스피 -46.1% · 레버리지 -78.5% · 1차선 50,000원까지 8.0%"
+    },
     {
       "id": "b37",
       "status": "done",
@@ -2909,6 +3028,7 @@
     }).join("") +
     (dec.length ? '<div class="actline">🗣 채팅에 "1번 승인" 한마디면 바로 처리합니다 · "보류"라고 하시면 내립니다</div>' : "");
 
+    renderCycle(t);
     renderEngine(t);
     renderSub(d);
     renderStudy();
@@ -2916,6 +3036,42 @@
     renderLegalCheck(t);
 
     $("#todayLabel").textContent = t.dateLabel || "";
+  }
+
+  /* ---------- 사이클 지수투자 판정 ---------- */
+  function renderCycle(t){
+    var c = t.cycle;
+    if (!c) return;
+    $("#cycAt").textContent = c.at || "";
+    var score = Math.max(0, Math.min(100, +c.score || 0));
+    var tone = c.tone || "blue";
+    var axes = (c.axes || []).map(function(a){
+      return '<div class="xcell"><div class="xk">' + esc(a.k) + ' 축</div>' +
+        '<div class="xv">' + esc(a.v) + '<small>/100</small></div>' +
+        '<div class="xn">' + esc(a.note || "") + '</div></div>';
+    }).join("");
+    var rows = (c.rows || []).map(function(r){
+      return '<div class="cycrow"><span class="cn">' + esc(r.n) + '</span>' +
+        '<b class="cv">' + esc(r.v) + '</b>' +
+        '<em class="' + updown(r.c) + '">' + esc(r.c) + '</em>' +
+        '<span class="cd">' + esc(r.dd || "-") + '</span></div>';
+    }).join("");
+    var exits = (c.exits || []).join(" / ");
+    $("#cycle").innerHTML =
+      '<div class="cphase ' + esc(tone) + '"><div class="cp1">' + esc(c.phase) + '</div>' +
+        '<div class="cp2">' + esc(c.scoreNote || "") + '</div></div>' +
+      '<div class="cbar"><div class="cfill" style="width:' + score.toFixed(1) + '%"></div>' +
+        '<span class="cpin" style="left:' + score.toFixed(1) + '%"></span></div>' +
+      '<div class="cscale"><span>과열·익절</span><span>중립·관망</span><span>조정·대기</span><span>공포·매수</span></div>' +
+      '<div class="xstrip" style="margin-top:11px">' + axes + '</div>' +
+      '<div class="ctable">' + rows + '</div>' +
+      (c.gate ? '<div class="gnext"><span class="gk"></span>' + esc(c.gate) + '</div>' : '') +
+      '<div class="cact"><b>오늘의 권고</b>' + esc(c.action) + '</div>' +
+      '<div class="hint"><b>고문 반론</b> · ' + esc(c.counter || "") + '</div>' +
+      (exits ? '<div class="chipsline"><span class="chk">분할 익절</span>' + exits.split(" / ").map(function(e){
+        return '<span class="ch"><span class="d2"></span>' + esc(e) + '</span>';
+      }).join("") + '</div>' : '') +
+      '<div class="mkn">' + esc(c.legal || "") + '</div>';
   }
 
   /* ---------- 재테크 실전 엔진 ---------- */
