@@ -1017,11 +1017,11 @@
     if (!s) return;
     var sc = s.score || {}, ca = s.cash || {};
     var dd = dday(s.due);
-    $("#subAt").textContent = dd ? dd.txt + (s.dueAt ? " " + s.dueAt : "") : "";
+    $("#subAt").textContent = dd ? (dd.d === 0 ? "오늘 " + (s.dueAt || "") + " 마감" : dd.txt + (s.dueAt ? " " + s.dueAt : "")) : "";
     var pct = Math.round((sc.total || 0) / (sc.max || 84) * 100);
     $("#sub").innerHTML =
       '<div class="stoph"><div class="stname">' + esc(s.name) + '</div>' +
-        (dd ? '<span class="dd ' + dd.cls + '">' + dd.txt + (s.dueAt ? ' ' + esc(s.dueAt) : '') + '</span>' : '') + '</div>' +
+        (dd ? '<span class="dd ' + dd.cls + '">' + dd.txt + '</span>' : '') + '</div>' +
       '<div class="stsub">' + esc(s.type) + '</div>' +
       '<div class="xstrip" style="margin-top:9px">' +
         '<div class="xcell"><div class="xk">예상 가점 · 민간분양 환산</div>' +
