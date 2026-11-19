@@ -102,12 +102,12 @@ var __OUT = (function(){
   var out = {};
   ["#service","#todayLabel","#footAt","#clock","#decCnt","#mktAt","#qpos","#ppos",
    "#deptCnt","#staffCnt","#govCnt","#trialCnt","#quizCnt","#moneyCnt","#opCnt",
-   "#engineAt","#subAt","#rmCnt","#auditCnt"].forEach(function(s){
+   "#engineAt","#subAt","#rmCnt","#auditCnt","#fitAt"].forEach(function(s){
     out[s] = el(s).textContent;
   });
   ["#hero","#market","#decisions","#life","#banners","#kpis","#flow","#gov","#staff","#depts",
    "#bSum","#opSum","#ops","#report","#alliance","#money",
-   "#engine","#sub","#roadmap","#audit"].forEach(function(s){ out[s] = el(s).innerHTML; });
+   "#engine","#sub","#roadmap","#audit","#fit"].forEach(function(s){ out[s] = el(s).innerHTML; });
 
   /* --- v5: 재테크 실전 엔진 --- */
   out["engine.leverageLadder"] = (el("#engine").innerHTML.match(/lcard/g) || []).length;
@@ -166,6 +166,16 @@ var __OUT = (function(){
   out["cycle.gate"] = cy.indexOf("1차선") >= 0;
   out["cycle.legal"] = cy.indexOf("자동 주문이 아닙니다") >= 0;
   out["cycle.at"] = el("#cycAt").textContent;
+
+  /* --- v10.3: 오늘의 트레이닝 --- */
+  var fh = el("#fit").innerHTML;
+  out["fit.days"] = (fh.match(/class="wday /g) || []).length;
+  out["fit.todayOn"] = (fh.match(/class="wday gym on"/) || []).length;
+  out["fit.correct"] = (fh.match(/class="wc"/g) || []).length;
+  out["fit.ramp"] = fh.indexOf("1~2주차") >= 0;
+  out["fit.swimRule"] = fh.indexOf("볼륨 -20%") >= 0;
+  out["fit.items"] = (fh.match(/· /g) || []).length;
+  out["fit.at"] = el("#fitAt").textContent;
 
   /* --- 반려한 청약 건이 대기·알림에 남아 있지 않은지 --- */
   out["decisions.count"] = (el("#decisions").innerHTML.match(/class="dnum"/g) || []).length;

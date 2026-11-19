@@ -527,6 +527,25 @@
   .course .ct{font-size:11.4px; font-weight:800; letter-spacing:-.028em; line-height:1.4; word-break:keep-all}
   .course .ct em{font-style:normal; font-weight:700; color:var(--muted)}
   .course .cs{font-size:10.4px; color:var(--muted); margin-top:3px; line-height:1.46; letter-spacing:-.01em; word-break:keep-all}
+  /* v10.3 · 오늘의 트레이닝 */
+  .wdays{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin:9px 0 2px}
+  .wday{padding:7px 1px 6px; border-radius:9px; border:1px solid var(--hair); background:var(--card-2); text-align:center; min-width:0}
+  .wday b{display:block; font-size:9px; color:var(--faint); font-weight:800; letter-spacing:0}
+  .wday span{display:block; font-size:9.4px; font-weight:850; margin-top:3px; color:var(--ink-2); letter-spacing:-.03em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .wday.swim span{color:var(--blue)}
+  .wday.gym span{color:var(--brand)}
+  .wday.rest span{color:var(--faint)}
+  .wday.on{border-color:var(--brand); background:var(--brand-soft); box-shadow:0 0 0 1.5px var(--brand-line) inset}
+  .wday.on span{color:var(--brand)}
+  .wcorr{margin-top:8px; display:flex; flex-direction:column; gap:4px}
+  .wcorr .wc{display:flex; gap:7px; align-items:flex-start; padding:7px 9px; border-radius:10px; background:var(--card-2); border:1px solid var(--hair-2)}
+  .wcorr .wk{flex:0 0 auto; font-size:9.6px; font-weight:850; color:var(--brand); letter-spacing:-.03em; padding-top:1px}
+  .wcorr .wv{flex:1; min-width:0; font-size:10.2px; color:var(--muted); font-weight:700; line-height:1.5; letter-spacing:-.02em; word-break:keep-all}
+  .wramp{margin-top:8px; padding:8px 10px; border-radius:11px; background:var(--card-2); border:1px solid var(--hair-2)}
+  .wramp .wrk{display:flex; justify-content:space-between; align-items:baseline; gap:6px; font-size:10.2px; font-weight:850; letter-spacing:-.03em}
+  .wramp .wrk em{font-style:normal; color:var(--brand); font-size:9.6px}
+  .wbar{height:5px; border-radius:99px; background:var(--hair); margin-top:6px; overflow:hidden}
+  .wbar i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--brand),var(--brand-2))}
   .course .cw{flex:0 0 auto; font-size:9.8px; font-weight:820; color:var(--brand); white-space:nowrap;
     font-variant-numeric:tabular-nums; margin-top:1px}
 
@@ -797,6 +816,14 @@
               <span class="qpos" id="ppos"></span>
             </div>
           </div>
+        </div>
+
+        <div class="mod">
+          <div class="modhead">
+            <span class="mico">🏋️</span><span class="mtitle">오늘의 트레이닝 · 수영 병행 3분할</span>
+            <span class="mmeta" id="fitAt"></span>
+          </div>
+          <div class="mbody" id="fit"></div>
         </div>
 
         <div class="mod">
@@ -1088,6 +1115,7 @@
     renderSub(d);
     renderStudy();
     renderLife(t);
+    renderFit(t);
     renderLegalCheck(t);
 
     $("#todayLabel").textContent = t.dateLabel || "";
@@ -1402,6 +1430,43 @@
       '</div></div>';
     }
     $("#life").innerHTML = html;
+  }
+
+  /* ---------- 오늘의 트레이닝 · 수영 병행 3분할 ---------- */
+  function renderFit(t){
+    var f = t.fitness;
+    if (!f || !$("#fit")) return;
+    if ($("#fitAt")) $("#fitAt").textContent = f.at || "";
+    var cur = f.today || {};
+    var html = '<div class="lrow"><span class="lico">💪</span><div class="lb">' +
+      '<div class="lt">' + esc(cur.name || "") + '<span class="dd hot">' + esc(cur.d || "") + ' 오늘</span></div>' +
+      '<div class="ld">' + esc(cur.when || "") + ' · ' + esc(cur.focus || "") + '</div>' +
+      (cur.items || []).map(function(x){ return '<div class="ld" style="margin-top:3px">· ' + esc(x) + '</div>'; }).join("") +
+    '</div></div>';
+
+    if ((f.days || []).length){
+      html += '<div class="wdays">' + f.days.map(function(x){
+        return '<div class="wday ' + esc(x.tone || "") + (x.on ? ' on' : '') + '"><b>' + esc(x.d) + '</b><span>' + esc(x.k) + '</span></div>';
+      }).join("") + '</div>' +
+      '<div class="ld">' + esc(f.week || "") + ' · 수영 다음 날 상체는 볼륨 -20%, 수영 직후 24시간 내 고강도 당기기는 쉼</div>';
+    }
+
+    if ((f.correct || []).length){
+      html += '<div class="lrow"><span class="lico">🧘</span><div class="lb">' +
+        '<div class="lt">세션 전 10~12분 교정 3축</div>' +
+        '<div class="wcorr">' + f.correct.map(function(c){
+          return '<div class="wc"><span class="wk">' + esc(c.k) + '</span><span class="wv">' + esc(c.v) + '</span></div>';
+        }).join("") + '</div>' +
+      '</div></div>';
+    }
+
+    if (f.ramp){
+      var pct = Math.max(0, Math.min(100, +f.ramp.pct || 0));
+      html += '<div class="wramp"><div class="wrk"><span>' + esc(f.ramp.label || "") + '</span><em>' + esc(f.ramp.week || "") + '</em></div>' +
+        '<div class="wbar"><i style="width:' + pct + '%"></i></div></div>';
+    }
+    if (f.note) html += '<div class="ln" style="margin-top:8px">' + esc(f.note) + '</div>';
+    $("#fit").innerHTML = html;
   }
 
   /* ================= 조직도 ================= */
