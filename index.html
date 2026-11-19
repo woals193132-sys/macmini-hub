@@ -185,6 +185,69 @@
   .office .oline{font-size:11.8px; color:var(--ink-2); margin-top:10px; line-height:1.5; font-weight:600; letter-spacing:-.015em}
   .office .bar{margin-top:10px}
 
+  /* ============ legal team (직속) ============ */
+  .office.legal{background:
+      radial-gradient(420px 160px at 100% 0%, rgba(90,110,255,.12), transparent 66%),
+      linear-gradient(162deg, rgba(67,86,224,.10), rgba(94,120,255,.03) 46%, transparent 76%),
+      var(--card)}
+  html[data-theme="dark"] .office.legal{background:
+      radial-gradient(420px 160px at 100% 0%, rgba(130,150,255,.16), transparent 66%),
+      linear-gradient(162deg, rgba(120,140,255,.14), rgba(150,170,255,.04) 46%, transparent 76%),
+      var(--card)}
+  .office .oscope{display:grid; gap:7px; margin-top:11px}
+  .office .osrow{display:flex; align-items:baseline; gap:7px; font-size:10.8px; line-height:1.42}
+  .office .osk{font-weight:800; color:var(--ink-2); letter-spacing:-.02em; flex:0 0 auto}
+  .office .osv{color:var(--muted); font-weight:600; min-width:0; flex:1}
+  .office .osstate{margin-left:auto; flex:0 0 auto; font-size:9.3px; font-weight:800; padding:2px 6px; border-radius:6px; border:1px solid var(--hair-2); color:var(--muted); white-space:nowrap}
+  .office .osstate.green{color:#0e9f6e; border-color:rgba(14,159,110,.35); background:rgba(14,159,110,.08)}
+  .office .osstate.amber{color:#b07300; border-color:rgba(216,137,0,.35); background:rgba(243,180,85,.12)}
+
+  /* ============ advisors (고문단) ============ */
+  .advgrid{display:grid; grid-template-columns:1fr; gap:9px}
+  .adv{position:relative; text-align:left; font:inherit; color:var(--ink); cursor:pointer; overflow:hidden;
+    background:linear-gradient(150deg, rgba(79,70,229,.07), transparent 62%), var(--card);
+    border:1px solid var(--hair); border-left:3px solid var(--brand); border-radius:14px; padding:11px 12px 10px; box-shadow:var(--shadow);
+    transition:transform .13s ease, border-color .2s}
+  .adv:active{transform:scale(.987)}
+  .adv .ahead{display:flex; align-items:center; gap:8px}
+  .adv .aico{width:28px;height:28px;flex:0 0 auto;border-radius:9px;display:grid;place-items:center;font-size:14px;background:var(--card-2);border:1px solid var(--hair-2)}
+  .adv .aname{font-size:13px; font-weight:820; letter-spacing:-.04em; line-height:1.2}
+  .adv .aen{font-size:8.4px; font-weight:800; letter-spacing:.1em; color:var(--faint); text-transform:uppercase; margin-top:2px}
+  .adv .apill{margin-left:auto; flex:0 0 auto; font-size:9.3px; font-weight:800; padding:2.5px 7px; border-radius:99px; border:1px solid var(--hair-2); color:var(--muted); white-space:nowrap}
+  .adv .apair{display:flex; align-items:center; gap:6px; margin-top:9px; padding:6px 8px; border-radius:9px; background:var(--card-2); border:1px solid var(--hair-2)}
+  .adv .aporg{font-size:11px; font-weight:780; letter-spacing:-.02em}
+  .adv .aploop{color:var(--brand); font-weight:800; font-size:12px}
+  .adv .apcnt{margin-left:auto; font-size:9.5px; color:var(--muted); font-weight:700}
+  .adv .aline{font-size:11.2px; color:var(--ink-2); line-height:1.5; margin-top:8px; font-weight:600; letter-spacing:-.012em}
+  .adv .alast{font-size:10.5px; color:var(--muted); line-height:1.45; margin-top:5px}
+  .adv .alast b{color:var(--brand); font-weight:800}
+  .loopcard{padding:12px 13px}
+  .loopcard .lsteps{display:flex; align-items:center; gap:5px; flex-wrap:wrap}
+  .loopcard .lstep{font-size:10.3px; font-weight:780; padding:4px 8px; border-radius:8px; background:var(--card-2); border:1px solid var(--hair-2); letter-spacing:-.02em}
+  .loopcard .larrow{color:var(--brand); font-size:10px; opacity:.8}
+  .loopcard .lsum{display:flex; gap:11px; margin-top:10px; font-size:10.8px; color:var(--muted); font-weight:650; flex-wrap:wrap}
+  .loopcard .lsum b{color:var(--ink); font-size:14px; font-weight:850; margin-right:3px; font-variant-numeric:tabular-nums}
+  .fbx{margin-top:10px; border-top:1px solid var(--hair); padding-top:8px; display:grid; gap:7px}
+  .fbx .fbrow{display:flex; gap:7px; font-size:10.4px; line-height:1.42; align-items:baseline}
+  .fbx .fbwho{flex:0 0 auto; font-weight:800; color:var(--ink-2); letter-spacing:-.02em}
+  .fbx .fbtxt{color:var(--muted); min-width:0; flex:1}
+  .fbx .fbst{flex:0 0 auto; font-size:8.8px; font-weight:800; padding:1.5px 6px; border-radius:5px; border:1px solid var(--hair-2); color:var(--muted)}
+  .fbx .fbst.green{color:#0e9f6e; border-color:rgba(14,159,110,.35)}
+  .fbx .fbst.amber{color:#b07300; border-color:rgba(216,137,0,.35)}
+
+  /* ============ today: legal module ============ */
+  .lglrow{display:flex; gap:9px; padding:8px 0; border-top:1px solid var(--hair)}
+  .lglrow:first-child{border-top:0; padding-top:2px}
+  .lglrow .lgi{flex:0 0 auto; font-size:14px; line-height:1.3}
+  .lglrow .lgb{min-width:0; flex:1}
+  .lglrow .lgt{font-size:12.3px; font-weight:780; letter-spacing:-.03em; display:flex; align-items:center; gap:6px; flex-wrap:wrap}
+  .lglrow .lgv{font-size:9.3px; font-weight:800; padding:2px 6px; border-radius:6px; border:1px solid var(--hair-2); color:var(--muted)}
+  .lglrow .lgv.green{color:#0e9f6e; border-color:rgba(14,159,110,.35); background:rgba(14,159,110,.07)}
+  .lglrow .lgv.amber{color:#b07300; border-color:rgba(216,137,0,.35); background:rgba(243,180,85,.12)}
+  .lglrow .lgn{font-size:10.5px; color:var(--muted); line-height:1.45; margin-top:3px}
+  .lgadv{display:flex; gap:8px; align-items:baseline; margin-top:10px; padding-top:9px; border-top:1px solid var(--hair); font-size:11px; color:var(--ink-2); font-weight:650}
+  .lgadv .lano{color:var(--muted); font-size:10.3px; margin-top:2px; font-weight:600}
+
   /* ============ departments ============ */
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:stretch}
   .dept.wide{grid-column:1 / -1}
@@ -694,6 +757,14 @@
           <div class="mbody" id="life"></div>
         </div>
 
+        <div class="mod">
+          <div class="modhead">
+            <span class="mico">⚖️</span><span class="mtitle">법무·컴플라이언스 체크</span>
+            <span class="mmeta" id="legalAt"></span>
+          </div>
+          <div class="mbody" id="legal"></div>
+        </div>
+
       </div>
       <p class="foot">오늘 챙길 것만 한 화면에 모았습니다<br><span id="footAt"></span></p>
     </section>
@@ -703,13 +774,18 @@
       <div class="banners" id="banners"></div>
       <div class="kpis" id="kpis"></div>
       <div class="card flow" id="flow"></div>
+      <div class="sec"><span>🧭</span><h2>고문단 · 조직 1:1 전담 자문</h2><div class="rule"></div><span class="cnt" id="advCnt"></span></div>
+      <div class="card loopcard" id="loop"></div>
+      <div class="advgrid" id="advisors"></div>
       <div class="sec"><span>🏛️</span><h2>직속 1실 · 감사·평가</h2><div class="rule"></div><span class="cnt" id="officeCnt"></span></div>
       <button class="office" id="office" aria-label="자산형성실 상세"></button>
+      <div class="sec"><span>⚖️</span><h2>법무·컴플라이언스팀 · 감사·법무 라인</h2><div class="rule"></div><span class="cnt" id="legalCnt"></span></div>
+      <button class="office legal" id="legalCard" aria-label="법무·컴플라이언스팀 상세"></button>
       <div class="sec"><span>🧾</span><h2>자산형성실 성과 감사 보드</h2><div class="rule"></div><span class="cnt" id="auditCnt"></span></div>
       <div class="card audit" id="audit"></div>
       <div class="sec"><span>🏢</span><h2>산하 6개 그룹</h2><div class="rule"></div><span class="cnt" id="deptCnt"></span></div>
       <div class="grid" id="depts"></div>
-      <p class="foot">카드를 누르면 조직 상세가 열립니다<br>1실 6그룹 · 하위 팀 드릴다운</p>
+      <p class="foot">카드를 누르면 조직 상세가 열립니다<br>1실 6그룹 + 법무·컴플라이언스팀 + 고문단 6인 · 하위 팀 드릴다운</p>
     </section>
 
     <!-- ============ 3탭 · 작업 보드 ============ -->
@@ -961,6 +1037,7 @@
     renderSub(d);
     renderStudy();
     renderLife(t);
+    renderLegalCheck(t);
 
     $("#todayLabel").textContent = t.dateLabel || "";
   }
@@ -1178,6 +1255,23 @@
   });
 
   /* ---------- 주거·청약·라이프 ---------- */
+  /* ---------- 법무·컴플라이언스 체크 ---------- */
+  function renderLegalCheck(t){
+    var l = (t.life || {}).legal;
+    if (!l || !$("#legal")) return;
+    var lab = { green: "적합", amber: "주의", red: "위험" };
+    if ($("#legalAt")) $("#legalAt").textContent = (l.verdict ? l.verdict + " · " : "") + (l.at || "");
+    $("#legal").innerHTML = (l.rows || []).map(function(r){
+      var k = r.tone || "green";
+      return '<div class="lglrow"><span class="lgi">' + (r.emoji || "•") + '</span>' +
+        '<div class="lgb"><div class="lgt">' + esc(r.text) +
+          '<span class="lgv ' + esc(k) + '">' + (lab[k] || "점검") + '</span></div>' +
+        '<div class="lgn">' + esc(r.note) + '</div></div></div>';
+    }).join("") +
+    (l.advisor ? '<div class="lgadv"><span>' + (l.advisor.emoji || "🧭") + ' ' + esc(l.advisor.text) + '</span></div>' +
+      '<div class="lano">' + esc(l.advisor.note) + '</div>' : "");
+  }
+
   function renderLife(t){
     var lf = t.life || {};
     var rm = lf.rooms || {}, ap = lf.apply || {}, dc = lf.date || {}, tm = lf.tomorrow || {};
@@ -1275,6 +1369,63 @@
         '<div class="barlabel">' + esc(of.barLabel) + '</div>';
       on($("#office"), "click", function(){ openEntity(of); });
       $("#officeCnt").textContent = of.barLabel;
+    }
+
+    var lg = d.org.legal;
+    if (lg && $("#legalCard")){
+      var lpct = Math.round(lg.progress[0] / lg.progress[1] * 100);
+      var scp = (lg.scope || []).map(function(x){
+        return '<div class="osrow"><span class="osk">' + esc(x.k) + '</span><span class="osv">' + esc(x.v) + '</span>' +
+          '<span class="osstate ' + esc(x.tone) + '">' + esc(x.state) + '</span></div>';
+      }).join("");
+      $("#legalCard").innerHTML =
+        '<div class="oh"><span class="oicon">' + lg.emoji + '</span><div class="otext">' +
+          '<div class="oname">' + esc(lg.name) + '</div>' +
+          '<div class="oen">' + esc(lg.en || "") + '</div>' +
+          '<div class="ostat"><span class="dot ' + esc(lg.tone) + '"></span>' + esc(lg.status) + '</div>' +
+        '</div></div>' +
+        (lg.badge ? '<div class="obadge"><span class="obadge-k">' + esc(lg.badge) + '</span>' +
+          (lg.badgeLabel ? '<span class="obadge-v">' + esc(lg.badgeLabel) + '</span>' : '') + '</div>' : '') +
+        '<div class="oline">' + esc(lg.line) + '</div>' +
+        (scp ? '<div class="oscope">' + scp + '</div>' : '') +
+        '<div class="bar"><i class="' + esc(lg.barTone) + '" style="width:' + lpct + '%"></i></div>' +
+        '<div class="barlabel">' + esc(lg.barLabel) + '</div>';
+      on($("#legalCard"), "click", function(){ openEntity(lg); });
+      $("#legalCnt").textContent = lg.barLabel;
+    }
+
+    var adv = (d.org.advisors || []);
+    var fb = d.org.feedback || {};
+    if ($("#advCnt")) $("#advCnt").textContent = adv.length + "인 · 1:1 전담";
+    if ($("#loop") && fb.steps){
+      $("#loop").innerHTML =
+        '<div class="lsteps">' + fb.steps.map(function(s, i){
+          return (i ? '<span class="larrow">→</span>' : '') + '<span class="lstep">' + esc(s) + '</span>';
+        }).join("") + '</div>' +
+        '<div class="lsum"><span><b>' + (fb.cycles || 0) + '</b>회 상호 피드백</span>' +
+          '<span><b>' + (fb.applied || 0) + '</b>건 반영</span>' +
+          '<span>' + esc(fb.period || "") + ' · 다음 ' + esc(fb.next || "") + '</span></div>' +
+        '<div class="fbx">' + (fb.items || []).map(function(x){
+          return '<div class="fbrow"><span class="fbwho">' + esc(x.advisor) + ' → ' + esc(x.org) + '</span>' +
+            '<span class="fbtxt">' + esc(x.ask) + ' · ' + esc(x.reply) + '</span>' +
+            '<span class="fbst ' + (x.state === "반영" ? "green" : "amber") + '">' + esc(x.state) + '</span></div>';
+        }).join("") + '</div>';
+    }
+    if ($("#advisors")){
+      $("#advisors").innerHTML = adv.map(function(a, i){
+        return '<button class="adv" data-adv="' + i + '">' +
+          '<div class="ahead"><span class="aico">' + a.emoji + '</span>' +
+            '<div><div class="aname">' + esc(a.name) + '</div><div class="aen">' + esc(a.en || "") + '</div></div>' +
+            '<span class="apill">' + esc(a.cadence) + '</span></div>' +
+          '<div class="apair"><span class="aporg">' + (a.pairEmoji || "🏢") + ' ' + esc(a.pair) + '</span>' +
+            '<span class="aploop">⇄</span><span class="apcnt">' + esc(a.loop) + '</span></div>' +
+          '<div class="aline">' + esc(a.line) + '</div>' +
+          '<div class="alast"><b>최근</b> ' + esc(a.recent) + '</div>' +
+        '</button>';
+      }).join("");
+      Array.prototype.forEach.call(document.querySelectorAll(".adv"), function(el){
+        el.addEventListener("click", function(){ openEntity(adv[+el.dataset.adv]); });
+      });
     }
 
     var gs = d.org.groups || [];

@@ -126,6 +126,24 @@ var __OUT = (function(){
     decision: el("#decisions").innerHTML.indexOf("호러트래커") >= 0
   };
 
+  /* --- v6: 법무팀 + 고문단 --- */
+  out["legal.cardName"] = el("#legalCard").innerHTML.indexOf("법무·컴플라이언스팀") >= 0;
+  out["legal.scopes"] = (el("#legalCard").innerHTML.match(/class="osrow"/g) || []).length;
+  out["legal.today"] = el("#legal").innerHTML.indexOf("개구리 소년") >= 0;
+  out["legal.advisorLine"] = el("#legal").innerHTML.indexOf("고문단 6인") >= 0;
+  out["adv.cards"] = (el("#advisors").innerHTML.match(/class="adv"/g) || []).length;
+  var pairs = ["재테크그룹", "뉴미디어스튜디오", "라이프매니지먼트그룹", "시스템·대외협력그룹", "애슬레틱", "자산형성실"];
+  out["adv.pairsAll"] = pairs.every(function(p){ return el("#advisors").innerHTML.indexOf(p) >= 0; });
+  out["loop.steps"] = (el("#loop").innerHTML.match(/class="lstep"/g) || []).length;
+  out["loop.items"] = (el("#loop").innerHTML.match(/class="fbrow"/g) || []).length;
+  out["office.teams"] = (el("#office").innerHTML.match(/gchip/g) || []).length;
+
+  /* --- 반려한 청약 건이 대기·알림에 남아 있지 않은지 --- */
+  out["decisions.count"] = (el("#decisions").innerHTML.match(/class="dnum"/g) || []).length;
+  out["decisions.bonum"] = el("#decisions").innerHTML.indexOf("보눔") >= 0;
+  out["alerts.bonum"] = el("#banners").innerHTML.indexOf("보눔") >= 0;
+  out["life.rejected"] = el("#life").innerHTML.indexOf("반려 완료") >= 0;
+
   /* --- 오늘의 1분 학습: 퀴즈 --- */
   var opts = document.querySelectorAll(".qopt");
   out["quiz.choiceCount"] = opts.length;
@@ -163,6 +181,8 @@ var __OUT = (function(){
     out["sheet:group" + i] = el("#sheetTitle").innerHTML + " || teams=" + el("#sheetTeams").innerHTML.length +
       " || " + ((el("#sheetTeams").innerHTML.match(/steams-head">([^<]*)/) || ["", ""])[1] || "—");
   }
+  fire(el("#legalCard"), "click");
+  out["sheet:legal"] = el("#sheetTitle").innerHTML + " || details=" + el("#sheetList").innerHTML.length;
   return out;
 })();
 """

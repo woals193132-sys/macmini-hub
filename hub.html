@@ -185,6 +185,69 @@
   .office .oline{font-size:11.8px; color:var(--ink-2); margin-top:10px; line-height:1.5; font-weight:600; letter-spacing:-.015em}
   .office .bar{margin-top:10px}
 
+  /* ============ legal team (직속) ============ */
+  .office.legal{background:
+      radial-gradient(420px 160px at 100% 0%, rgba(90,110,255,.12), transparent 66%),
+      linear-gradient(162deg, rgba(67,86,224,.10), rgba(94,120,255,.03) 46%, transparent 76%),
+      var(--card)}
+  html[data-theme="dark"] .office.legal{background:
+      radial-gradient(420px 160px at 100% 0%, rgba(130,150,255,.16), transparent 66%),
+      linear-gradient(162deg, rgba(120,140,255,.14), rgba(150,170,255,.04) 46%, transparent 76%),
+      var(--card)}
+  .office .oscope{display:grid; gap:7px; margin-top:11px}
+  .office .osrow{display:flex; align-items:baseline; gap:7px; font-size:10.8px; line-height:1.42}
+  .office .osk{font-weight:800; color:var(--ink-2); letter-spacing:-.02em; flex:0 0 auto}
+  .office .osv{color:var(--muted); font-weight:600; min-width:0; flex:1}
+  .office .osstate{margin-left:auto; flex:0 0 auto; font-size:9.3px; font-weight:800; padding:2px 6px; border-radius:6px; border:1px solid var(--hair-2); color:var(--muted); white-space:nowrap}
+  .office .osstate.green{color:#0e9f6e; border-color:rgba(14,159,110,.35); background:rgba(14,159,110,.08)}
+  .office .osstate.amber{color:#b07300; border-color:rgba(216,137,0,.35); background:rgba(243,180,85,.12)}
+
+  /* ============ advisors (고문단) ============ */
+  .advgrid{display:grid; grid-template-columns:1fr; gap:9px}
+  .adv{position:relative; text-align:left; font:inherit; color:var(--ink); cursor:pointer; overflow:hidden;
+    background:linear-gradient(150deg, rgba(79,70,229,.07), transparent 62%), var(--card);
+    border:1px solid var(--hair); border-left:3px solid var(--brand); border-radius:14px; padding:11px 12px 10px; box-shadow:var(--shadow);
+    transition:transform .13s ease, border-color .2s}
+  .adv:active{transform:scale(.987)}
+  .adv .ahead{display:flex; align-items:center; gap:8px}
+  .adv .aico{width:28px;height:28px;flex:0 0 auto;border-radius:9px;display:grid;place-items:center;font-size:14px;background:var(--card-2);border:1px solid var(--hair-2)}
+  .adv .aname{font-size:13px; font-weight:820; letter-spacing:-.04em; line-height:1.2}
+  .adv .aen{font-size:8.4px; font-weight:800; letter-spacing:.1em; color:var(--faint); text-transform:uppercase; margin-top:2px}
+  .adv .apill{margin-left:auto; flex:0 0 auto; font-size:9.3px; font-weight:800; padding:2.5px 7px; border-radius:99px; border:1px solid var(--hair-2); color:var(--muted); white-space:nowrap}
+  .adv .apair{display:flex; align-items:center; gap:6px; margin-top:9px; padding:6px 8px; border-radius:9px; background:var(--card-2); border:1px solid var(--hair-2)}
+  .adv .aporg{font-size:11px; font-weight:780; letter-spacing:-.02em}
+  .adv .aploop{color:var(--brand); font-weight:800; font-size:12px}
+  .adv .apcnt{margin-left:auto; font-size:9.5px; color:var(--muted); font-weight:700}
+  .adv .aline{font-size:11.2px; color:var(--ink-2); line-height:1.5; margin-top:8px; font-weight:600; letter-spacing:-.012em}
+  .adv .alast{font-size:10.5px; color:var(--muted); line-height:1.45; margin-top:5px}
+  .adv .alast b{color:var(--brand); font-weight:800}
+  .loopcard{padding:12px 13px}
+  .loopcard .lsteps{display:flex; align-items:center; gap:5px; flex-wrap:wrap}
+  .loopcard .lstep{font-size:10.3px; font-weight:780; padding:4px 8px; border-radius:8px; background:var(--card-2); border:1px solid var(--hair-2); letter-spacing:-.02em}
+  .loopcard .larrow{color:var(--brand); font-size:10px; opacity:.8}
+  .loopcard .lsum{display:flex; gap:11px; margin-top:10px; font-size:10.8px; color:var(--muted); font-weight:650; flex-wrap:wrap}
+  .loopcard .lsum b{color:var(--ink); font-size:14px; font-weight:850; margin-right:3px; font-variant-numeric:tabular-nums}
+  .fbx{margin-top:10px; border-top:1px solid var(--hair); padding-top:8px; display:grid; gap:7px}
+  .fbx .fbrow{display:flex; gap:7px; font-size:10.4px; line-height:1.42; align-items:baseline}
+  .fbx .fbwho{flex:0 0 auto; font-weight:800; color:var(--ink-2); letter-spacing:-.02em}
+  .fbx .fbtxt{color:var(--muted); min-width:0; flex:1}
+  .fbx .fbst{flex:0 0 auto; font-size:8.8px; font-weight:800; padding:1.5px 6px; border-radius:5px; border:1px solid var(--hair-2); color:var(--muted)}
+  .fbx .fbst.green{color:#0e9f6e; border-color:rgba(14,159,110,.35)}
+  .fbx .fbst.amber{color:#b07300; border-color:rgba(216,137,0,.35)}
+
+  /* ============ today: legal module ============ */
+  .lglrow{display:flex; gap:9px; padding:8px 0; border-top:1px solid var(--hair)}
+  .lglrow:first-child{border-top:0; padding-top:2px}
+  .lglrow .lgi{flex:0 0 auto; font-size:14px; line-height:1.3}
+  .lglrow .lgb{min-width:0; flex:1}
+  .lglrow .lgt{font-size:12.3px; font-weight:780; letter-spacing:-.03em; display:flex; align-items:center; gap:6px; flex-wrap:wrap}
+  .lglrow .lgv{font-size:9.3px; font-weight:800; padding:2px 6px; border-radius:6px; border:1px solid var(--hair-2); color:var(--muted)}
+  .lglrow .lgv.green{color:#0e9f6e; border-color:rgba(14,159,110,.35); background:rgba(14,159,110,.07)}
+  .lglrow .lgv.amber{color:#b07300; border-color:rgba(216,137,0,.35); background:rgba(243,180,85,.12)}
+  .lglrow .lgn{font-size:10.5px; color:var(--muted); line-height:1.45; margin-top:3px}
+  .lgadv{display:flex; gap:8px; align-items:baseline; margin-top:10px; padding-top:9px; border-top:1px solid var(--hair); font-size:11px; color:var(--ink-2); font-weight:650}
+  .lgadv .lano{color:var(--muted); font-size:10.3px; margin-top:2px; font-weight:600}
+
   /* ============ departments ============ */
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:stretch}
   .dept.wide{grid-column:1 / -1}
@@ -694,6 +757,14 @@
           <div class="mbody" id="life"></div>
         </div>
 
+        <div class="mod">
+          <div class="modhead">
+            <span class="mico">⚖️</span><span class="mtitle">법무·컴플라이언스 체크</span>
+            <span class="mmeta" id="legalAt"></span>
+          </div>
+          <div class="mbody" id="legal"></div>
+        </div>
+
       </div>
       <p class="foot">오늘 챙길 것만 한 화면에 모았습니다<br><span id="footAt"></span></p>
     </section>
@@ -703,13 +774,18 @@
       <div class="banners" id="banners"></div>
       <div class="kpis" id="kpis"></div>
       <div class="card flow" id="flow"></div>
+      <div class="sec"><span>🧭</span><h2>고문단 · 조직 1:1 전담 자문</h2><div class="rule"></div><span class="cnt" id="advCnt"></span></div>
+      <div class="card loopcard" id="loop"></div>
+      <div class="advgrid" id="advisors"></div>
       <div class="sec"><span>🏛️</span><h2>직속 1실 · 감사·평가</h2><div class="rule"></div><span class="cnt" id="officeCnt"></span></div>
       <button class="office" id="office" aria-label="자산형성실 상세"></button>
+      <div class="sec"><span>⚖️</span><h2>법무·컴플라이언스팀 · 감사·법무 라인</h2><div class="rule"></div><span class="cnt" id="legalCnt"></span></div>
+      <button class="office legal" id="legalCard" aria-label="법무·컴플라이언스팀 상세"></button>
       <div class="sec"><span>🧾</span><h2>자산형성실 성과 감사 보드</h2><div class="rule"></div><span class="cnt" id="auditCnt"></span></div>
       <div class="card audit" id="audit"></div>
       <div class="sec"><span>🏢</span><h2>산하 6개 그룹</h2><div class="rule"></div><span class="cnt" id="deptCnt"></span></div>
       <div class="grid" id="depts"></div>
-      <p class="foot">카드를 누르면 조직 상세가 열립니다<br>1실 6그룹 · 하위 팀 드릴다운</p>
+      <p class="foot">카드를 누르면 조직 상세가 열립니다<br>1실 6그룹 + 법무·컴플라이언스팀 + 고문단 6인 · 하위 팀 드릴다운</p>
     </section>
 
     <!-- ============ 3탭 · 작업 보드 ============ -->
@@ -785,26 +861,26 @@
 <script>window.__INLINE_DATA__ = {
   "meta": {
     "title": "AI 본부 관제 허브",
-    "subtitle": "재테크 실전 엔진 · 관제 보드",
+    "subtitle": "재테크 실전 엔진 · 법무·고문 라인",
     "owner": "사장님",
     "chief": "맥미니 본부장",
-    "updated": "2026-11-19T11:25:00+09:00",
+    "updated": "2026-11-19T12:45:00+09:00",
     "service": {
       "active": 10,
       "total": 10,
       "label": "정상"
     },
-    "version": "v5"
+    "version": "v6"
   },
   "today": {
     "date": "2026-11-19",
     "dateLabel": "11/19 (목)",
-    "phase": "장중 10:58 · 실시간 시세",
-    "headline": "대기 현금도 이자 뽑고, 익절선까지 걸었습니다",
+    "phase": "장중 12:45 · 법무·고문 라인 가동",
+    "headline": "1화는 법무 검수 통과, 조직엔 고문단 6인을 붙였습니다",
     "stats": [
       {
         "k": "결재 대기",
-        "v": "3",
+        "v": "2",
         "tone": "red"
       },
       {
@@ -922,14 +998,6 @@
       }
     ],
     "decisions": [
-      {
-        "emoji": "🏠",
-        "title": "화곡역 보눔하우스 705호 제출",
-        "due": "2026-11-19",
-        "dueAt": "18:00",
-        "ask": "보증금 4,950만 · 월 34.4만 조건 확인을 마쳤습니다. 폼은 다 채워 뒀고 주민번호·부모 소득만 넣으면 되니, 신청할지 보류할지만 정해 주세요.",
-        "why": "오늘 18:00 마감입니다. 중복 제출은 전부 탈락이라 '작성'은 한 번만 눌러야 합니다."
-      },
       {
         "emoji": "🎬",
         "title": "호러트래커 1화 시범작 — 업로드 여부",
@@ -1087,12 +1155,12 @@
       },
       "apply": {
         "emoji": "🏠",
-        "title": "화곡역 보눔하우스",
-        "due": "2026-11-19",
-        "dueAt": "18:00",
-        "value": "오늘 18:00 마감",
-        "detail": "705호 · 보증금 4,950만 / 월 34.4만 · 무주택 1인가구 조건 확인 완료",
-        "next": "폼 입력 완료 · 주민번호·부모 소득만 넣고 '작성' 1회"
+        "title": "화곡역 보눔하우스 705호 · 반려 완료",
+        "due": "",
+        "dueAt": "",
+        "value": "반려 완료",
+        "detail": "사장님 판단으로 신청하지 않았습니다(11/19) · 보증금 4,950만 / 월 34.4만 조건이었습니다",
+        "next": "같은 단지 재공고가 나오면 실투입금 비교표로 다시 판정"
       },
       "date": {
         "week": "11/19~11/22",
@@ -1129,6 +1197,35 @@
         "title": "네이버 무료체험 발표일",
         "value": "셀로라바이 18:00",
         "detail": "토르홉 10:00 결과 확인 필요 · 셀로라바이 18:00 발표 — 당첨되면 스토어 알림·문자로 안내"
+      },
+      "legal": {
+        "at": "11/19 12:40 검수",
+        "verdict": "조건부 적합",
+        "rows": [
+          {
+            "emoji": "🎬",
+            "text": "호러트래커 1화 「개구리 소년」",
+            "tone": "green",
+            "note": "위험 0건 · 조건 6건 — AI 라벨, 제목 A안, 수치 출처, 썸네일, 유족 표현, 화면 고지"
+          },
+          {
+            "emoji": "📈",
+            "text": "투자·재테크 표현",
+            "tone": "green",
+            "note": "수익 보장·단정 표현 없음 · 유료 회원제로 바뀌면 유사투자자문업 신고 재검토"
+          },
+          {
+            "emoji": "🏠",
+            "text": "청약 신청서 기재",
+            "tone": "green",
+            "note": "소득·거주·부양은 사실만 · 부정청약은 3년 이하 징역 또는 3천만원 이하 벌금 + 최장 10년 자격 제한"
+          }
+        ],
+        "advisor": {
+          "emoji": "🧭",
+          "text": "고문단 6인 ↔ 6개 조직 1:1 가동",
+          "note": "이번 주 상호 피드백 12회 · 반영 7건 · 다음 회람 11/20 09:00"
+        }
       }
     },
     "watchlist": [
@@ -1163,6 +1260,20 @@
   "alerts": [
     {
       "level": "good",
+      "badge": "신설",
+      "date": "",
+      "text": "⚖️ 법무·컴플라이언스팀 신설 — 호러트래커 1화 검수 완료",
+      "detail": "1화 「개구리 소년」은 조건부 적합(위험 0 · 조건 6). 체크리스트와 검수 기록은 shorts-studio/LEGAL-CHECKLIST.md에 남겼고, 2화부터 제작 전·업로드 전 이중 검수를 거칩니다."
+    },
+    {
+      "level": "good",
+      "badge": "가동",
+      "date": "",
+      "text": "🧭 고문단 6인 영입 — 조직 1:1 전담 자문 라인",
+      "detail": "투자·전략(재테크) · 영상·콘텐츠(뉴미디어) · 주거·라이프(라이프) · 시스템·UX(시스템) · 피트니스·커리어(애슬레틱·자기개발) · 감사·컴플라이언스(자산형성실·법무팀). 주 1회 상호 피드백 회람으로 고문 진단→실행팀 반영→결과 측정→고문 재검토를 돌립니다."
+    },
+    {
+      "level": "good",
       "badge": "가동",
       "text": "재테크 실전 엔진 v5 — 대기 이자·익절선·부수입 루프 가동",
       "date": "",
@@ -1174,13 +1285,6 @@
       "text": "뉴미디어스튜디오 — 「호러트래커」 미스터리·호러·미제사건으로 전환",
       "date": "",
       "detail": "채널명을 호러트래커로 확정하고 소재를 미스터리·호러·미제사건으로 바꿨습니다. 인기 쇼츠 벤치마킹과 다크 시네마틱 파이프라인 고도화를 함께 진행 중이고, 매일 16:00 제작 스케줄도 새 기준으로 돌아갑니다."
-    },
-    {
-      "level": "warn",
-      "badge": "마감",
-      "text": "화곡역 보눔하우스 705호 — 오늘 18:00 마감",
-      "date": "2026-11-19",
-      "detail": "보증금 4,950만 · 월 34.4만. 폼은 다 채워 뒀고 주민번호·부모 소득만 넣고 '작성'을 한 번 누르면 됩니다. 중복 제출은 전부 탈락입니다."
     },
     {
       "level": "warn",
@@ -1259,12 +1363,12 @@
       "badgeLabel": "투자 감사 · 평가 전담",
       "status": "가동 중",
       "tone": "green",
-      "line": "투자 성과 감사 · 현금흐름 점검 · 월별 부수입·절감 추적 · 포트폴리오 배분·리스크 평가",
+      "line": "투자 성과 감사 · 현금흐름 점검 · 월별 부수입·절감 추적 · 포트폴리오 배분·리스크 평가 · 법무·컴플라이언스 라인",
       "progress": [
-        3,
-        4
+        4,
+        5
       ],
-      "barLabel": "감사 3 / 4",
+      "barLabel": "감사·법무 4 / 5",
       "barTone": "green",
       "details": [
         "역할: 직접 운용하지 않고 감사·평가만 합니다. 각 그룹의 투자가 계획과 원칙대로 굴러가는지 사후에 검증하는 최상위 감사실입니다.",
@@ -1274,7 +1378,24 @@
         "포트폴리오 배분: 현금·주식·청약·연금 비중과 레버리지 크기를 함께 놓고 감당 가능한 위험 범위인지 평가합니다.",
         "원칙: 집행(매수·계약·발급)은 각 그룹이 맡고, 이 실은 성과와 위험만 판정합니다. 지적 사항은 근거와 함께 보고합니다.",
         "산출물: 분기 감사 의견서 + 이상 징후 즉시 보고 + 월말 고과.",
-        "다음 점검: 11/30 월말 결산 — 부수입 실현액과 3분할 진입 여부를 확정합니다."
+        "다음 점검: 11/30 월말 결산 — 부수입 실현액과 3분할 진입 여부를 확정합니다.",
+        "법무 라인: 법무·컴플라이언스팀을 산하에 두고, 콘텐츠·재테크·생활 전반의 법적 저촉 여부를 제작 전과 업로드 전 두 번 검수합니다."
+      ],
+      "teams": [
+        {
+          "emoji": "⚖️",
+          "name": "법무·컴플라이언스팀",
+          "en": "Legal & Compliance Team",
+          "status": "가동 중",
+          "tone": "green",
+          "line": "호러트래커 검수 · 재테크 표현 심사 · 겸업·개인정보 점검",
+          "details": [
+            "① 호러트래커: 명예훼손·사자명예훼손, 초상권, 저작권, AI 합성 고지, 수사 중 사건 리스크를 화별로 검수합니다.",
+            "② 재테크: 자본시장법(유사투자자문업 신고 경계), 카드 약관 환수, 청약 허위기재, 세법 한도를 확인합니다.",
+            "③ 라이프·일반: 겸업 규정, 개인정보·익명화, 공개 페이지 노출을 점검합니다.",
+            "산출물: 화별 검수 기록(적합/조건부/위험) · 조건 이행 확인 · 체크리스트 갱신."
+          ]
+        }
       ]
     },
     "groups": [
@@ -1314,7 +1435,7 @@
               "판정 카드(신설): 공고마다 예상 가점(무주택기간·부양가족·통장기간)과 실투입금(보증금 − 지원, 계약금, 월 임대료)을 함께 계산해 올립니다.",
               "가점 해석: 13년 통장은 가점제에서 15점 몫 · 만 30세 미만이라 무주택기간이 아직 0점 → 추첨·소득요건형이 유리합니다.",
               "소득 120% 요건에 걸릴 수 있어 청년안심주택·행복주택·매입임대, 소득 무관 무순위(줍줍)도 함께 봅니다.",
-              "최근(11/19 09:30): 마포구 청년 잔여세대는 소득 70% 이하 요건 초과로 제외 · 권역 외 1건 제외 → 조건에 맞는 신규 공고 0건. 화곡역 보눔하우스 705호는 오늘 18:00 마감(폼 입력 완료)."
+              "최근(11/19 12:40): 마포구 청년 잔여세대는 소득 70% 이하 요건 초과로 제외 · 권역 외 1건 제외 → 조건에 맞는 신규 공고 0건. 화곡역 보눔하우스 705호는 사장님 판단으로 반려(미신청)하고 대기 목록에서 내렸습니다."
             ]
           },
           {
@@ -1620,9 +1741,227 @@
           }
         ]
       }
-    ]
+    ],
+    "legal": {
+      "id": "legal",
+      "emoji": "⚖️",
+      "name": "법무·컴플라이언스팀",
+      "en": "Legal & Compliance Team",
+      "badge": "LEGAL",
+      "badgeLabel": "제작 전 · 업로드 전 이중 검수",
+      "status": "가동 중",
+      "tone": "green",
+      "line": "호러트래커 검수 · 재테크 표현 심사 · 겸업·개인정보 점검",
+      "progress": [
+        3,
+        3
+      ],
+      "barLabel": "검수 3 / 3",
+      "barTone": "green",
+      "scope": [
+        {
+          "k": "① 호러트래커",
+          "v": "명예훼손·초상권·저작권·AI 고지·수사 중 사건",
+          "tone": "green",
+          "state": "1화 조건부 적합"
+        },
+        {
+          "k": "② 재테크부",
+          "v": "자본시장법·카드 약관 환수·청약 허위기재·세법 한도",
+          "tone": "green",
+          "state": "상시 점검"
+        },
+        {
+          "k": "③ 라이프/일반",
+          "v": "직장 겸업 규정·개인정보·익명화",
+          "tone": "amber",
+          "state": "수익화 문턱 대기"
+        }
+      ],
+      "details": [
+        "판정 3단계: 적합 / 조건부(조건 이행 후 업로드) / 위험(금지). 조건부는 조건을 다 채우기 전에는 업로드하지 않습니다.",
+        "근거: 형법 §307·§308·§311·§312, 정보통신망법 §70, 저작권법 §28, 부정경쟁방지법 §2, 인공지능기본법 §31, 유튜브 AI 고지·커뮤니티 가이드라인.",
+        "1화 검수(11/19): 「개구리 소년」 위험 0 · 조건 6 — AI 사용 라벨, 제목 A안 고정, 32만/35만 수치 범위 표기, 부검 장면 썸네일 금지, 유족 표현 규칙, 화면 AI 고지 확대.",
+        "다음 화 적용: 용의자 실명·몽타주 금지, 생존 피해자·유족 무동의 인용 금지, 해외 사건은 해당국 명예훼손법 병행 검토."
+      ]
+    },
+    "advisors": [
+      {
+        "id": "invest",
+        "emoji": "📊",
+        "name": "투자·전략 고문",
+        "en": "Investment & Strategy Advisor",
+        "pair": "재테크그룹",
+        "pairEmoji": "📈",
+        "cadence": "매 거래일 · 주 1회 리뷰",
+        "status": "가동 중",
+        "tone": "green",
+        "line": "주식·청약·세테크의 가정과 손익비에 반론을 붙입니다.",
+        "recent": "3분할 1차선 50,000원 가정에 \"지수 -50% 지속\" 스트레스 테스트 요청 → 진입 보류로 답신",
+        "loop": "이번 주 4회 왕복"
+      },
+      {
+        "id": "content",
+        "emoji": "🎬",
+        "name": "영상·콘텐츠 고문",
+        "en": "Video & Content Advisor",
+        "pair": "뉴미디어스튜디오",
+        "pairEmoji": "🎥",
+        "cadence": "화별 업로드 전",
+        "status": "가동 중",
+        "tone": "green",
+        "line": "첫 2초 후킹·시청 지속률·다크 연출·사운드·BM을 벤치마크와 비교합니다.",
+        "recent": "1화 2.6초 훅 유지 · 34초 유골 자막 앞 0.6초 정적 추가 제안",
+        "loop": "이번 주 2회 왕복"
+      },
+      {
+        "id": "life",
+        "emoji": "🏡",
+        "name": "주거·라이프 고문",
+        "en": "Housing & Life Advisor",
+        "pair": "라이프매니지먼트그룹",
+        "pairEmoji": "🗓️",
+        "cadence": "주 1회",
+        "status": "가동 중",
+        "tone": "green",
+        "line": "원룸 입지·계약 안전·생활비·구독 효율을 봅니다.",
+        "recent": "보눔하우스 반려 반영 — 다음 공고부터 \"실투입금·월 부담\" 비교표로 판정",
+        "loop": "이번 주 1회 왕복"
+      },
+      {
+        "id": "system",
+        "emoji": "🛠️",
+        "name": "시스템·UX 고문",
+        "en": "Systems & UX Advisor",
+        "pair": "시스템·대외협력그룹",
+        "pairEmoji": "⚙️",
+        "cadence": "주 1회",
+        "status": "가동 중",
+        "tone": "green",
+        "line": "대외 벤치마킹·허브 UI/UX·자동화 안정성을 점검합니다.",
+        "recent": "법무·고문 라인 추가로 조직도 길이 1.3배 — 섹션 접기와 1화면 요약 제안",
+        "loop": "이번 주 3회 왕복"
+      },
+      {
+        "id": "fitness",
+        "emoji": "🏊",
+        "name": "피트니스·커리어 고문",
+        "en": "Fitness & Career Advisor",
+        "pair": "애슬레틱 · 자기개발그룹",
+        "pairEmoji": "🏋️",
+        "cadence": "주 1회",
+        "status": "가동 중",
+        "tone": "green",
+        "line": "수영·헬스 루틴과 산안기·영어 학습 효율을 봅니다.",
+        "recent": "산안기 1문제/일 → 주 5회 몰아풀기 제안, 영어는 출퇴근 1표현 유지",
+        "loop": "이번 주 1회 왕복"
+      },
+      {
+        "id": "compliance",
+        "emoji": "⚖️",
+        "name": "감사·컴플라이언스 고문",
+        "en": "Audit & Compliance Advisor",
+        "pair": "자산형성실 · 법무·컴플라이언스팀",
+        "pairEmoji": "🏛️",
+        "cadence": "화별 · 월별",
+        "status": "가동 중",
+        "tone": "green",
+        "line": "법적 저촉·포트폴리오 편중·고과 기준을 교차 검증합니다.",
+        "recent": "1화 조건부 적합 판정에 동의, \"32만/35만\" 수치 범위 표기 요구",
+        "loop": "이번 주 2회 왕복"
+      }
+    ],
+    "feedback": {
+      "period": "11/17~11/19",
+      "cycles": 12,
+      "applied": 7,
+      "next": "11/20 09:00 주간 회람",
+      "steps": [
+        "고문 진단",
+        "실행팀 반영",
+        "결과 측정",
+        "고문 재검토"
+      ],
+      "items": [
+        {
+          "advisor": "투자·전략",
+          "org": "재테크",
+          "ask": "1차선 진입 전 -50% 스트레스 테스트",
+          "reply": "진입 보류 유지 · 2차선까지 분할",
+          "state": "반영"
+        },
+        {
+          "advisor": "영상·콘텐츠",
+          "org": "뉴미디어",
+          "ask": "34초 유골 자막 앞 정적 0.6초",
+          "reply": "2화 렌더에 적용",
+          "state": "반영"
+        },
+        {
+          "advisor": "감사·컴플라이언스",
+          "org": "법무팀",
+          "ask": "수치·판단 주체 표기 강화",
+          "reply": "1화 설명·고정댓글에 반영",
+          "state": "반영"
+        },
+        {
+          "advisor": "주거·라이프",
+          "org": "라이프",
+          "ask": "청약 판정에 실투입금 비교표",
+          "reply": "다음 공고부터 적용",
+          "state": "검토중"
+        },
+        {
+          "advisor": "시스템·UX",
+          "org": "시스템",
+          "ask": "조직도 섹션 접기",
+          "reply": "v7 후보로 적재",
+          "state": "검토중"
+        }
+      ]
+    }
   },
   "board": [
+    {
+      "id": "b37",
+      "status": "done",
+      "title": "법무·컴플라이언스팀 신설 — 검수 체계 가동",
+      "dept": "법무",
+      "time": "12:40",
+      "detail": "LEGAL-CHECKLIST.md 작성 · 1화 조건부 적합 · 제작 전/업로드 전 이중 검수"
+    },
+    {
+      "id": "b36",
+      "status": "done",
+      "title": "호러트래커 1화 법무 검수 (개구리 소년)",
+      "dept": "법무",
+      "time": "12:35",
+      "detail": "위험 0 · 조건 6 — AI 라벨·제목 A안·수치 범위·썸네일·유족 표현·화면 고지"
+    },
+    {
+      "id": "b35",
+      "status": "done",
+      "title": "고문단 6인 영입 — 조직 1:1 전담 자문",
+      "dept": "고문단",
+      "time": "12:30",
+      "detail": "투자·영상·주거·시스템·피트니스·감사 고문 ↔ 6개 조직, 주 1회 상호 피드백 회람"
+    },
+    {
+      "id": "b34b",
+      "status": "done",
+      "title": "화곡역 보눔하우스 705호 반려 정리",
+      "dept": "청약운용",
+      "time": "12:20",
+      "detail": "사장님 판단으로 미신청 · 결재 대기·마감 알림에서 제거, 대기 2건으로 갱신"
+    },
+    {
+      "id": "b38",
+      "status": "active",
+      "title": "2화 소재 선정 — 법무 사전 검토 동시 진행",
+      "dept": "뉴미디어",
+      "time": "16:00 예정",
+      "detail": "소재 확정 즉시 수사 상태·실명·유족 상황 1차 관문 통과 후 대본 착수"
+    },
     {
       "id": "b34",
       "status": "done",
@@ -2571,6 +2910,7 @@
     renderSub(d);
     renderStudy();
     renderLife(t);
+    renderLegalCheck(t);
 
     $("#todayLabel").textContent = t.dateLabel || "";
   }
@@ -2788,6 +3128,23 @@
   });
 
   /* ---------- 주거·청약·라이프 ---------- */
+  /* ---------- 법무·컴플라이언스 체크 ---------- */
+  function renderLegalCheck(t){
+    var l = (t.life || {}).legal;
+    if (!l || !$("#legal")) return;
+    var lab = { green: "적합", amber: "주의", red: "위험" };
+    if ($("#legalAt")) $("#legalAt").textContent = (l.verdict ? l.verdict + " · " : "") + (l.at || "");
+    $("#legal").innerHTML = (l.rows || []).map(function(r){
+      var k = r.tone || "green";
+      return '<div class="lglrow"><span class="lgi">' + (r.emoji || "•") + '</span>' +
+        '<div class="lgb"><div class="lgt">' + esc(r.text) +
+          '<span class="lgv ' + esc(k) + '">' + (lab[k] || "점검") + '</span></div>' +
+        '<div class="lgn">' + esc(r.note) + '</div></div></div>';
+    }).join("") +
+    (l.advisor ? '<div class="lgadv"><span>' + (l.advisor.emoji || "🧭") + ' ' + esc(l.advisor.text) + '</span></div>' +
+      '<div class="lano">' + esc(l.advisor.note) + '</div>' : "");
+  }
+
   function renderLife(t){
     var lf = t.life || {};
     var rm = lf.rooms || {}, ap = lf.apply || {}, dc = lf.date || {}, tm = lf.tomorrow || {};
@@ -2885,6 +3242,63 @@
         '<div class="barlabel">' + esc(of.barLabel) + '</div>';
       on($("#office"), "click", function(){ openEntity(of); });
       $("#officeCnt").textContent = of.barLabel;
+    }
+
+    var lg = d.org.legal;
+    if (lg && $("#legalCard")){
+      var lpct = Math.round(lg.progress[0] / lg.progress[1] * 100);
+      var scp = (lg.scope || []).map(function(x){
+        return '<div class="osrow"><span class="osk">' + esc(x.k) + '</span><span class="osv">' + esc(x.v) + '</span>' +
+          '<span class="osstate ' + esc(x.tone) + '">' + esc(x.state) + '</span></div>';
+      }).join("");
+      $("#legalCard").innerHTML =
+        '<div class="oh"><span class="oicon">' + lg.emoji + '</span><div class="otext">' +
+          '<div class="oname">' + esc(lg.name) + '</div>' +
+          '<div class="oen">' + esc(lg.en || "") + '</div>' +
+          '<div class="ostat"><span class="dot ' + esc(lg.tone) + '"></span>' + esc(lg.status) + '</div>' +
+        '</div></div>' +
+        (lg.badge ? '<div class="obadge"><span class="obadge-k">' + esc(lg.badge) + '</span>' +
+          (lg.badgeLabel ? '<span class="obadge-v">' + esc(lg.badgeLabel) + '</span>' : '') + '</div>' : '') +
+        '<div class="oline">' + esc(lg.line) + '</div>' +
+        (scp ? '<div class="oscope">' + scp + '</div>' : '') +
+        '<div class="bar"><i class="' + esc(lg.barTone) + '" style="width:' + lpct + '%"></i></div>' +
+        '<div class="barlabel">' + esc(lg.barLabel) + '</div>';
+      on($("#legalCard"), "click", function(){ openEntity(lg); });
+      $("#legalCnt").textContent = lg.barLabel;
+    }
+
+    var adv = (d.org.advisors || []);
+    var fb = d.org.feedback || {};
+    if ($("#advCnt")) $("#advCnt").textContent = adv.length + "인 · 1:1 전담";
+    if ($("#loop") && fb.steps){
+      $("#loop").innerHTML =
+        '<div class="lsteps">' + fb.steps.map(function(s, i){
+          return (i ? '<span class="larrow">→</span>' : '') + '<span class="lstep">' + esc(s) + '</span>';
+        }).join("") + '</div>' +
+        '<div class="lsum"><span><b>' + (fb.cycles || 0) + '</b>회 상호 피드백</span>' +
+          '<span><b>' + (fb.applied || 0) + '</b>건 반영</span>' +
+          '<span>' + esc(fb.period || "") + ' · 다음 ' + esc(fb.next || "") + '</span></div>' +
+        '<div class="fbx">' + (fb.items || []).map(function(x){
+          return '<div class="fbrow"><span class="fbwho">' + esc(x.advisor) + ' → ' + esc(x.org) + '</span>' +
+            '<span class="fbtxt">' + esc(x.ask) + ' · ' + esc(x.reply) + '</span>' +
+            '<span class="fbst ' + (x.state === "반영" ? "green" : "amber") + '">' + esc(x.state) + '</span></div>';
+        }).join("") + '</div>';
+    }
+    if ($("#advisors")){
+      $("#advisors").innerHTML = adv.map(function(a, i){
+        return '<button class="adv" data-adv="' + i + '">' +
+          '<div class="ahead"><span class="aico">' + a.emoji + '</span>' +
+            '<div><div class="aname">' + esc(a.name) + '</div><div class="aen">' + esc(a.en || "") + '</div></div>' +
+            '<span class="apill">' + esc(a.cadence) + '</span></div>' +
+          '<div class="apair"><span class="aporg">' + (a.pairEmoji || "🏢") + ' ' + esc(a.pair) + '</span>' +
+            '<span class="aploop">⇄</span><span class="apcnt">' + esc(a.loop) + '</span></div>' +
+          '<div class="aline">' + esc(a.line) + '</div>' +
+          '<div class="alast"><b>최근</b> ' + esc(a.recent) + '</div>' +
+        '</button>';
+      }).join("");
+      Array.prototype.forEach.call(document.querySelectorAll(".adv"), function(el){
+        el.addEventListener("click", function(){ openEntity(adv[+el.dataset.adv]); });
+      });
     }
 
     var gs = d.org.groups || [];
