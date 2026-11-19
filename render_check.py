@@ -101,11 +101,30 @@ POST = r"""
 var __OUT = (function(){
   var out = {};
   ["#service","#todayLabel","#footAt","#clock","#decCnt","#mktAt","#qpos","#ppos",
-   "#deptCnt","#officeCnt","#trialCnt","#quizCnt","#moneyCnt","#opCnt"].forEach(function(s){
+   "#deptCnt","#officeCnt","#trialCnt","#quizCnt","#moneyCnt","#opCnt",
+   "#engineAt","#subAt","#rmCnt","#auditCnt"].forEach(function(s){
     out[s] = el(s).textContent;
   });
   ["#hero","#market","#decisions","#life","#banners","#kpis","#flow","#office","#depts",
-   "#bSum","#opSum","#ops","#report","#alliance","#money"].forEach(function(s){ out[s] = el(s).innerHTML; });
+   "#bSum","#opSum","#ops","#report","#alliance","#money",
+   "#engine","#sub","#roadmap","#audit"].forEach(function(s){ out[s] = el(s).innerHTML; });
+
+  /* --- v5: 재테크 실전 엔진 --- */
+  out["engine.leverageLadder"] = (el("#engine").innerHTML.match(/lcard/g) || []).length;
+  out["engine.exits"] = ((el("#engine").innerHTML.match(/익절/g) || []).length);
+  out["engine.parking"] = el("#engine").innerHTML.indexOf("파킹") >= 0;
+  out["engine.channels"] = el("#engine").innerHTML.indexOf("기화가거") >= 0 && el("#engine").innerHTML.indexOf("인사이트레이더") >= 0;
+  out["sub.score"] = ((el("#sub").innerHTML.match(/<div class="xv">(\d+)<small>\/(\d+)/) || [])[0] || "");
+  out["sub.cash"] = el("#sub").innerHTML.indexOf("2,475만") >= 0;
+  out["roadmap.tracks"] = (el("#roadmap").innerHTML.match(/class="row"/g) || []).length;
+  out["roadmap.gowi"] = el("#roadmap").innerHTML.indexOf("고향사랑기부") >= 0;
+  out["audit.grade"] = ((el("#audit").innerHTML.match(/class="agrade">([^<]*)/) || ["", ""])[1] || "");
+  out["audit.bars"] = (el("#audit").innerHTML.match(/class="arow"/g) || []).length;
+  out["horror"] = {
+    org: document.querySelector("#depts").innerHTML.indexOf("호러트래커") >= 0,
+    old: document.querySelector("#depts").innerHTML.indexOf("잡식공룡") >= 0,
+    decision: el("#decisions").innerHTML.indexOf("호러트래커") >= 0
+  };
 
   /* --- 오늘의 1분 학습: 퀴즈 --- */
   var opts = document.querySelectorAll(".qopt");

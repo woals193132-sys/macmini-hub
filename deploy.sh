@@ -3,17 +3,18 @@
 # 사용: sh deploy.sh            (work/macmini-hub 에서 실행)
 set -e
 REPO="woals193132-sys/macmini-hub"
-MSG="${1:-AI 본부 관제 허브 v4 — 오늘의 실전 보드}"
+MSG="${1:-AI 본부 관제 허브 v5 — 재테크 실전 엔진}"
 
 cd "$(dirname "$0")"
 python3 build.py
 python3 render_check.py index.html --brief > /dev/null
 python3 render_check.py hub.html --brief > /dev/null
+python3 leak_check.py
 
 # 매번 새 임시 폴더에 클론합니다 (이전 폴더가 잠겨 있어도 배포가 막히지 않게)
 WORK=$(mktemp -d 2>/dev/null || echo "./.deploy-$$")
 git clone -q "https://github.com/${REPO}.git" "$WORK/repo"
-cp index.html data.json manifest.webmanifest icon-180.png icon-512.png hub.html README.md build.py render_check.py deploy.sh .nojekyll "$WORK/repo/"
+cp index.html data.json manifest.webmanifest icon-180.png icon-512.png hub.html README.md build.py render_check.py leak_check.py deploy.sh .nojekyll "$WORK/repo/"
 cd "$WORK/repo"
 git add -A
 if git diff --cached --quiet; then

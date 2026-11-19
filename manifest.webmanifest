@@ -1,7 +1,7 @@
 {
   "name": "AI 본부 관제 허브",
   "short_name": "관제 허브",
-  "description": "재민 사장 · 맥미니 본부장의 AI 본부 관제 허브",
+  "description": "사장님 · 맥미니 본부장의 AI 본부 관제 허브",
   "lang": "ko",
   "dir": "ltr",
   "start_url": "./",
