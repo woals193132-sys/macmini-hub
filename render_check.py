@@ -135,6 +135,8 @@ var __OUT = (function(){
   out["gov.model"] = el("#gov").innerHTML.indexOf("스태프·사업부 체제") >= 0;
   out["dept.divisions"] = (el("#depts").innerHTML.match(/class="dept/g) || []).length;
   out["dept.teamChips"] = (el("#depts").innerHTML.match(/class="gchip"/g) || []).length;
+  out["org.teams"] = (function(){ var dd = window.__INLINE_DATA__ || {}, n = 0;
+    ((dd.org || {}).groups || []).forEach(function(g){ n += (g.teams || []).length; }); return n; })();
   out["legal.today"] = el("#legal").innerHTML.indexOf("개구리 소년") >= 0;
   out["legal.advisorLine"] = el("#legal").innerHTML.indexOf("고문단 6인") >= 0;
   out["adv.cards"] = (el("#advisors").innerHTML.match(/class="adv"/g) || []).length;
@@ -144,12 +146,13 @@ var __OUT = (function(){
   out["adv.crossCheck"] = advHtml.indexOf("경영기획·신사업실") >= 0;
   /* v10.2: 본부·팀 명칭 통일 — 새 이름이 전부 떠 있고 옛 이름은 남지 않았는지 (상세 시트 모은 뒤 맨 끝에서 판정) */
   var newTeams = ["준법검수팀", "신사업발굴팀", "주식운용팀", "청약·부동산운용팀", "리셀·프로모션팀",
-    "쇼츠기획팀", "쇼츠제작팀", "이모티콘제작팀", "인스타툰제작팀", "디지털굿즈팀",
+    "쇼츠기획팀", "쇼츠제작팀", "인스타툰제작팀", "디지털굿즈팀",
     "일상·주거관리팀", "수영강습팀", "피트니스팀", "어학스피킹팀", "자격증취득팀",
     "플랫폼UX·자동화팀", "대외협력·채널팀", "모니터링·리포팅팀",
     "모의투자운용팀", "여행특가모니터링팀"];
+  /* 2026-11-20 통폐합으로 사라진 이름 — 화면에 다시 나오면 실패 */
   var oldTeams = ["호러트래커 소재·기획팀", "호러트래커 제작·편집팀", "이모티콘·스티커팀", "인스타툰팀",
-    "디지털 굿즈팀", "일상·주거팀", "수영팀", "헬스팀", "영어 스피킹팀", "자격증팀",
+    "이모티콘제작팀", "디지털 굿즈팀", "일상·주거팀", "수영팀", "헬스팀", "영어 스피킹팀", "자격증팀",
     "허브 UI/UX·자동화 엔진팀", "외부 채널·네트워크팀", "법무·컴플라이언스팀", "아이디어뱅크·부업발굴팀"];
   var __sheetHTML = "";
   out["loop.steps"] = (el("#loop").innerHTML.match(/class="lstep"/g) || []).length;
