@@ -154,7 +154,6 @@ var __OUT = (function(){
   var __sheetHTML = "";
   out["loop.steps"] = (el("#loop").innerHTML.match(/class="lstep"/g) || []).length;
   out["loop.items"] = (el("#loop").innerHTML.match(/class="fbrow"/g) || []).length;
-  out["sub.rejected"] = el("#sub").innerHTML.indexOf("반려 완료") >= 0;
 
   /* --- v7: 사이클 지수투자 판정 --- */
   var cy = el("#cycle").innerHTML;
@@ -178,11 +177,17 @@ var __OUT = (function(){
   out["fit.items"] = (fh.match(/· /g) || []).length;
   out["fit.at"] = el("#fitAt").textContent;
 
-  /* --- 반려한 청약 건이 대기·알림에 남아 있지 않은지 --- */
+  /* --- 지운 항목(주거 청약 건·이어폰 배송 건)의 흔적이 남아 있지 않은지 --- */
   out["decisions.count"] = (el("#decisions").innerHTML.match(/class="dnum"/g) || []).length;
-  out["decisions.bonum"] = el("#decisions").innerHTML.indexOf("보눔") >= 0;
-  out["alerts.bonum"] = el("#banners").innerHTML.indexOf("보눔") >= 0;
-  out["life.rejected"] = el("#life").innerHTML.indexOf("반려 완료") >= 0;
+  var __d = window.__INLINE_DATA__ || {};
+  var __ids = (__d.board || []).map(function(t){ return t.id; });
+  out["cleanup.boardIds"] = !(__ids.indexOf("b34b") >= 0 || __ids.indexOf("b15") >= 0 || __ids.indexOf("b18") >= 0);
+  out["cleanup.cards"] = !__d.subscription && !(__d.today && __d.today.life && __d.today.life.apply);
+  var __pat = new RegExp("\\uBCF4\\uB214|\\uC0E5\\uC988|shokz|BA261114121108648", "i");
+  var __trace = JSON.stringify(__d) +
+    ["#hero","#decisions","#life","#banners","#sub","#board","#advisors","#depts","#staff"].map(function(s){ return el(s).innerHTML; }).join("");
+  out["cleanup.textTrace"] = __pat.test(__trace);
+  out["sub.emptyHint"] = el("#sub").innerHTML.indexOf("판정 중인 공고가 없습니다") >= 0;
 
   /* --- 오늘의 1분 학습: 퀴즈 --- */
   var opts = document.querySelectorAll(".qopt");

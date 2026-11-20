@@ -1326,7 +1326,11 @@
   /* ---------- 청약 공고 판정 ---------- */
   function renderSub(d){
     var s = d.subscription;
-    if (!s) return;
+    if (!s || !s.name){
+      if ($("#subAt")) $("#subAt").textContent = "";
+      if ($("#sub")) $("#sub").innerHTML = '<div class="hint" style="padding:14px 15px;margin:0">판정 중인 공고가 없습니다 — 새 공고가 나오면 예상 가점·실투입금 비교표로 올립니다.</div>';
+      return;
+    }
     var sc = s.score || {}, ca = s.cash || {};
     var rej = s.status === "rejected";
     var dd = rej ? null : dday(s.due);
