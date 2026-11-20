@@ -303,6 +303,7 @@
     margin:0; align-items:flex-start}
   .task .stripe{width:3px; align-self:stretch; border-radius:99px; background:var(--faint); flex:0 0 auto; margin-top:1px; opacity:.8}
   .task.done .stripe{background:var(--green)} .task.active .stripe{background:var(--blue)} .task.check .stripe{background:var(--amber)}
+  .task.hold .stripe{background:var(--faint)} .task.hold .tt{color:var(--muted); text-decoration:line-through; text-decoration-color:var(--faint); text-decoration-thickness:1px}
   .task .tbody{flex:1; min-width:0}
   .task .tt{font-size:13.2px; font-weight:700; letter-spacing:-.025em; line-height:1.38; color:var(--ink)}
   .task .tm{font-size:11.2px; color:var(--muted); margin-top:4px; display:flex; gap:6px; flex-wrap:wrap; align-items:center; letter-spacing:-.005em}
@@ -311,6 +312,7 @@
   .pill.done{background:var(--green-soft); color:var(--green)}
   .pill.active{background:var(--blue-soft); color:var(--blue)}
   .pill.check{background:var(--amber-soft); color:var(--amber)}
+  .pill.hold{background:var(--card-2); color:var(--muted)}
   .task .td{font-size:11.8px; color:var(--muted); margin-top:5px; line-height:1.5}
   .tlink{display:inline-flex; align-items:center; gap:4px; margin-top:7px; font-size:12px; font-weight:700; color:var(--brand); text-decoration:none}
   .tlink svg{width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.2}
@@ -1742,9 +1744,9 @@
 
   /* ================= 작업 보드 ================= */
   function renderBoard(d){
-    var counts = { all: d.board.length, done: 0, active: 0, check: 0 };
+    var counts = { all: d.board.length, done: 0, active: 0, check: 0, hold: 0 };
     d.board.forEach(function(t){ counts[t.status] = (counts[t.status] || 0) + 1; });
-    var fdefs = [["all","전체"],["active","진행중"],["done","완료"],["check","확인필요"]];
+    var fdefs = [["all","전체"],["active","진행중"],["done","완료"],["check","확인필요"],["hold","보류"]];
     $("#filters").innerHTML = fdefs.map(function(f){
       return '<button class="fbtn" role="tab" data-f="' + f[0] + '" aria-selected="' + (state.filter === f[0]) + '">' +
         f[1] + '<span class="fc">' + (counts[f[0]] || 0) + '</span></button>';
@@ -1752,7 +1754,7 @@
     Array.prototype.forEach.call(document.querySelectorAll(".fbtn"), function(el){
       el.addEventListener("click", function(){ state.filter = el.dataset.f; renderBoard(DATA); });
     });
-    var label = { done: "완료", active: "진행중", check: "확인필요" };
+    var label = { done: "완료", active: "진행중", check: "확인필요", hold: "보류" };
     var list = d.board.filter(function(t){ return state.filter === "all" || t.status === state.filter; });
     $("#tasks").innerHTML = list.map(function(t){
       return '<div class="task ' + esc(t.status) + '"><div class="stripe"></div><div class="tbody">' +

@@ -120,11 +120,15 @@ var __OUT = (function(){
   out["roadmap.gowi"] = el("#roadmap").innerHTML.indexOf("고향사랑기부") >= 0;
   out["audit.grade"] = ((el("#audit").innerHTML.match(/class="agrade">([^<]*)/) || ["", ""])[1] || "");
   out["audit.bars"] = (el("#audit").innerHTML.match(/class="arow"/g) || []).length;
-  out["horror"] = {
-    org: document.querySelector("#depts").innerHTML.indexOf("호러트래커") >= 0,
-    old: document.querySelector("#depts").innerHTML.indexOf("잡식공룡") >= 0,
-    decision: el("#decisions").innerHTML.indexOf("호러트래커") >= 0
+  var __chh = el("#depts").innerHTML + el("#decisions").innerHTML + el("#banners").innerHTML + el("#staff").innerHTML;
+  var __bare = __chh.split("구 호러트래커").join("");
+  out["channel"] = {
+    renamed: __chh.indexOf("이슈트래커") >= 0,
+    bareOldLeft: __bare.indexOf("호러트래커") >= 0,
+    historyMark: __chh.indexOf("구 호러트래커") >= 0,
+    host: document.querySelector("#depts").innerHTML.indexOf("잡식공룡") >= 0
   };
+  out["decisions.noCmong"] = el("#decisions").innerHTML.indexOf("크몽") < 0;
 
   /* --- v10: 대기업형 스태프·사업부 체제 --- */
   var sh = el("#staff").innerHTML;
@@ -186,8 +190,14 @@ var __OUT = (function(){
   var __ids = (__d.board || []).map(function(t){ return t.id; });
   out["cleanup.boardIds"] = !(__ids.indexOf("b34b") >= 0 || __ids.indexOf("b15") >= 0 || __ids.indexOf("b18") >= 0);
   out["cleanup.cards"] = !__d.subscription && !(__d.today && __d.today.life && __d.today.life.apply);
+  /* v13: 크몽 생산직 전자책은 의도적으로 「보류」라 b41과 그 알림만 검사에서 뺍니다. */
+  out["board.hold"] = (__d.board || []).filter(function(t){ return t.status === "hold"; }).map(function(t){ return t.id + ":" + t.title; }).join(",");
+  out["board.holdFilter"] = el("#filters").innerHTML.indexOf("보류") >= 0;
+  var __traceD = JSON.parse(JSON.stringify(__d));
+  if (__traceD.board) __traceD.board = __traceD.board.filter(function(t){ return t.status !== "hold"; });
+  __traceD.alerts = (__traceD.alerts || []).filter(function(a){ return (a.text || "").indexOf("생산직 전자책") < 0; });
   var __pat = new RegExp("\\uBCF4\\uB214|\\uC0E5\\uC988", "i");
-  var __trace = JSON.stringify(__d) +
+  var __trace = JSON.stringify(__traceD) +
     ["#hero","#decisions","#life","#banners","#sub","#board","#advisors","#depts","#staff"].map(function(s){ return el(s).innerHTML; }).join("");
   out["cleanup.textTrace"] = __pat.test(__trace);
   out["sub.emptyHint"] = el("#sub").innerHTML.indexOf("판정 중인 공고가 없습니다") >= 0;
