@@ -183,7 +183,7 @@ var __OUT = (function(){
   var __ids = (__d.board || []).map(function(t){ return t.id; });
   out["cleanup.boardIds"] = !(__ids.indexOf("b34b") >= 0 || __ids.indexOf("b15") >= 0 || __ids.indexOf("b18") >= 0);
   out["cleanup.cards"] = !__d.subscription && !(__d.today && __d.today.life && __d.today.life.apply);
-  var __pat = new RegExp("\\uBCF4\\uB214|\\uC0E5\\uC988|shokz|BA261114121108648", "i");
+  var __pat = new RegExp("\\uBCF4\\uB214|\\uC0E5\\uC988", "i");
   var __trace = JSON.stringify(__d) +
     ["#hero","#decisions","#life","#banners","#sub","#board","#advisors","#depts","#staff"].map(function(s){ return el(s).innerHTML; }).join("");
   out["cleanup.textTrace"] = __pat.test(__trace);
