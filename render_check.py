@@ -146,7 +146,8 @@ var __OUT = (function(){
   var newTeams = ["준법검수팀", "신사업발굴팀", "주식운용팀", "청약·부동산운용팀", "리셀·프로모션팀",
     "쇼츠기획팀", "쇼츠제작팀", "이모티콘제작팀", "인스타툰제작팀", "디지털굿즈팀",
     "일상·주거관리팀", "수영강습팀", "피트니스팀", "어학스피킹팀", "자격증취득팀",
-    "플랫폼UX·자동화팀", "대외협력·채널팀", "모니터링·리포팅팀"];
+    "플랫폼UX·자동화팀", "대외협력·채널팀", "모니터링·리포팅팀",
+    "모의투자운용팀", "여행특가모니터링팀"];
   var oldTeams = ["호러트래커 소재·기획팀", "호러트래커 제작·편집팀", "이모티콘·스티커팀", "인스타툰팀",
     "디지털 굿즈팀", "일상·주거팀", "수영팀", "헬스팀", "영어 스피킹팀", "자격증팀",
     "허브 UI/UX·자동화 엔진팀", "외부 채널·네트워크팀", "법무·컴플라이언스팀", "아이디어뱅크·부업발굴팀"];
@@ -208,6 +209,17 @@ var __OUT = (function(){
   out["phrase.koText"] = ((el("#phrase").innerHTML.match(/<div class="phko">([^<]*)/) || ["", ""])[1] || "").slice(0, 40);
   fire(el("#btnSpeak"), "click");
   out["phrase.speakToast"] = el("#toast").textContent;
+
+  /* --- v10.6: 두 트랙 판단 · 모의투자 원장 카드 --- */
+  var trkH = el("#tracks").innerHTML, papH = el("#paper").innerHTML;
+  out["tracks.rendered"] = trkH.length > 200;
+  out["tracks.signals"] = (trkH.match(/BUY_T\d|WAIT/g) || []).join(",");
+  out["tracks.hasFunds"] = trkH.indexOf("퇴직금 트랙") >= 0 && trkH.indexOf("개인연금 트랙") >= 0;
+  out["tracks.hasNext"] = trkH.indexOf("다음 ") >= 0;
+  out["paper.rendered"] = papH.length > 150;
+  out["paper.books"] = (papH.match(/Book [AB]/g) || []).join(",");
+  out["paper.hasDiff"] = papH.indexOf("분할–올인") >= 0;
+  out["paper.noAmounts"] = !/\d{2,3},\d{3},\d{3}원/.test(papH + trkH);
 
   /* --- 조직 상세 시트 --- */
   var staffCards = document.querySelectorAll(".office");
