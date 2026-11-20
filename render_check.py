@@ -221,6 +221,16 @@ var __OUT = (function(){
   out["paper.hasDiff"] = papH.indexOf("분할–올인") >= 0;
   out["paper.noAmounts"] = !/\d{2,3},\d{3},\d{3}원/.test(papH + trkH);
 
+  /* --- v11: SOXL 추이·매수 판정 --- */
+  var sxH = el("#soxl").innerHTML;
+  out["soxl.rendered"] = sxH.length > 200;
+  out["soxl.verdict"] = ((sxH.match(/class="cp1">([^<]*)/) || ["", ""])[1] || "");
+  out["soxl.cells"] = (sxH.match(/class="xcell"/g) || []).length;
+  out["soxl.lines"] = (sxH.match(/class="cycrow"/g) || []).length;
+  out["soxl.conds"] = (sxH.match(/class="ch"/g) || []).length;
+  out["soxl.legal"] = sxH.indexOf("자동 주문이 아닙니다") >= 0;
+  out["soxl.at"] = el("#soxlAt").textContent;
+
   /* --- 조직 상세 시트 --- */
   var staffCards = document.querySelectorAll(".office");
   out["staffCount"] = staffCards.length;

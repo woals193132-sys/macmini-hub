@@ -784,6 +784,14 @@
 
         <div class="mod">
           <div class="modhead">
+            <span class="mico">🇺🇸</span><span class="mtitle">SOXL 추이 · 매수 판정</span>
+            <span class="mmeta" id="soxlAt"></span>
+          </div>
+          <div class="mbody" id="soxl"></div>
+        </div>
+
+        <div class="mod">
+          <div class="modhead">
             <span class="mico">🧪</span><span class="mtitle">모의투자운용팀 · 가상 원장</span>
             <span class="mmeta" id="paperAt"></span>
           </div>
@@ -1128,6 +1136,7 @@
 
     renderCycle(t);
     renderTracks(t);
+    renderSoxl(t);
     renderPaper(t);
     renderEngine(t);
     renderSub(d);
@@ -1206,6 +1215,37 @@
     if (d.note) html += '<div class="hint">' + esc(d.note) + '</div>';
     html += '<div class="mkn">' + esc(d.legal || "") + '</div>';
     $("#tracks").innerHTML = html;
+  }
+
+  /* ---------- 🇺🇸 SOXL 추이 · 매수 판정 ---------- */
+  function renderSoxl(t){
+    var s = t.soxl;
+    if (!s) return;
+    $("#soxlAt").textContent = s.at || "";
+    var cells = (s.cells || []).map(function(c){
+      return '<div class="xcell"><div class="xk">' + esc(c.k) + '</div>' +
+        '<div class="xv">' + esc(c.v) + '</div><div class="xn">' + esc(c.n || "") + '</div></div>';
+    }).join("");
+    var lines = (s.lines || []).map(function(l){
+      return '<div class="cycrow"><span class="cn">' + l.n + '차 관찰선</span>' +
+        '<b class="cv">' + esc(l.price) + '</b>' +
+        '<em class="' + updown(l.gap) + '">' + esc(l.gap) + '</em>' +
+        '<span class="cd">' + esc(l.state) + '</span></div>';
+    }).join("");
+    var conds = (s.conds || []).map(function(c){
+      return '<span class="ch"><span class="d2"></span>' + esc(c) + '</span>';
+    }).join("");
+    $("#soxl").innerHTML =
+      '<div class="cphase ' + esc(s.tone || "amber") + '"><div class="cp1">' + esc(s.verdict) + ' · ' + esc(s.label) + '</div>' +
+        '<div class="cp2">' + esc(s.name) + ' · ' + esc(s.price) + ' ' + esc(s.chg) +
+        ' · 52주 고점 대비 ' + esc(s.dd) + ' · 판정 점수 ' + (+s.score || 0) + '/100</div></div>' +
+      '<div class="xstrip" style="margin-top:11px">' + cells + '</div>' +
+      (lines ? '<div class="ctable">' + lines + '</div>' : '') +
+      '<div class="gnext"><span class="gk"></span>' + esc(s.action) + '</div>' +
+      '<div class="hint"><b>근거</b> · ' + esc(s.note || "") + '</div>' +
+      (conds ? '<div class="chipsline"><span class="chk">확인 조건</span>' + conds + '</div>' : '') +
+      (s.ratio ? '<div class="hint">' + esc(s.ratio) + '</div>' : '') +
+      '<div class="mkn">' + esc(s.legal || "") + '</div>';
   }
 
   /* ---------- 모의투자운용팀 가상 원장 ---------- */
