@@ -1167,6 +1167,7 @@
         '<span class="cd">' + esc(r.dd || "-") + '</span></div>';
     }).join("");
     var exits = (c.exits || []).join(" / ");
+    var flows = (c.flows || []).length > 0;
     $("#cycle").innerHTML =
       '<div class="cphase ' + esc(tone) + '"><div class="cp1">' + esc(c.phase) + '</div>' +
         '<div class="cp2">' + esc(c.scoreNote || "") + '</div></div>' +
@@ -1175,6 +1176,9 @@
       '<div class="cscale"><span>과열·익절</span><span>중립·관망</span><span>조정·대기</span><span>공포·매수</span></div>' +
       '<div class="xstrip" style="margin-top:11px">' + axes + '</div>' +
       '<div class="ctable">' + rows + '</div>' +
+      (flows ? '<div class="chipsline"><span class="chk">오늘 수급</span>' + c.flows.map(function(f){
+        return '<span class="ch"><span class="d2"></span>' + esc(f) + '</span>';
+      }).join("") + '</div>' : '') +
       (c.gate ? '<div class="gnext"><span class="gk"></span>' + esc(c.gate) + '</div>' : '') +
       '<div class="cact"><b>오늘의 권고</b>' + esc(c.action) + '</div>' +
       '<div class="hint"><b>고문 반론</b> · ' + esc(c.counter || "") + '</div>' +
