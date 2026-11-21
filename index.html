@@ -1849,13 +1849,13 @@
           '<span class="ot ' + esc(v.tone || "green") + '">3AI</span></div>';
       }).join("");
       if ($("#ai3time")) $("#ai3time").innerHTML = (a3.timetable || []).map(function(t){
-        return '<div class="op"><span class="oe" style="font-size:11.5px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap">' + esc(t.time) + '</span>' +
+        return '<div class="op"><span class="oe" style="width:auto;flex:0 0 46px;justify-items:start;font-size:11.5px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap">' + esc(t.time) + '</span>' +
           '<div class="ob"><div class="on">' + esc(t.what) + '</div>' +
           '<div class="oc">' + esc(t.who) + '</div></div>' +
           '<span class="ot ' + esc(t.tone || "green") + '">' + esc(t.tag || "") + '</span></div>';
       }).join("");
       if ($("#ai3week")) $("#ai3week").innerHTML = (a3.weekly || []).map(function(w){
-        return '<div class="op"><span class="oe" style="font-size:10.5px;font-weight:800;white-space:nowrap">' + esc(w.when) + '</span>' +
+        return '<div class="op"><span class="oe" style="width:auto;flex:0 0 74px;justify-items:start;font-size:10.5px;font-weight:800;white-space:nowrap">' + esc(w.when) + '</span>' +
           '<div class="ob"><div class="on">' + esc(w.what) + '</div>' +
           '<div class="oc">' + esc(w.who) + '</div></div></div>';
       }).join("");
