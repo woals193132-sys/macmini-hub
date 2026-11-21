@@ -106,7 +106,7 @@ var __OUT = (function(){
     out[s] = el(s).textContent;
   });
   ["#hero","#market","#decisions","#life","#banners","#kpis","#flow","#gov","#staff","#depts",
-   "#bSum","#opSum","#ops","#report","#alliance","#money",
+   "#bSum","#opSum","#ops","#report","#alliance","#ai3","#ai3time","#ai3week","#money",
    "#engine","#sub","#roadmap","#audit","#fit"].forEach(function(s){ out[s] = el(s).innerHTML; });
 
   /* --- v5: 재테크 실전 엔진 --- */
@@ -161,6 +161,13 @@ var __OUT = (function(){
   var __sheetHTML = "";
   out["loop.steps"] = (el("#loop").innerHTML.match(/class="lstep"/g) || []).length;
   out["loop.items"] = (el("#loop").innerHTML.match(/class="fbrow"/g) || []).length;
+
+  /* --- v13.6: 3AI 협업 본부별 역할 · 예약업무 시간표 --- */
+  out["ai3.divisions"] = (el("#ai3").innerHTML.match(/class="op"/g) || []).length;
+  out["ai3.times"] = (el("#ai3time").innerHTML.match(/class="op"/g) || []).length;
+  out["ai3.weekly"] = (el("#ai3week").innerHTML.match(/class="op"/g) || []).length;
+  out["ai3.slots"] = ["08:05", "16:00", "16:30", "17:00", "21:00"].every(function(t){ return el("#ai3time").innerHTML.indexOf(t) >= 0; });
+  out["ai3.divisionNames"] = ["재테크", "디지털굿즈", "라이프", "뉴미디어"].every(function(n){ return el("#ai3").innerHTML.indexOf(n) >= 0; });
 
   /* --- v7: 사이클 지수투자 판정 --- */
   var cy = el("#cycle").innerHTML;
