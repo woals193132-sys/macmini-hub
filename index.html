@@ -1520,8 +1520,8 @@
 
   function renderLife(t){
     var lf = t.life || {};
-    var rm = lf.rooms || {}, ap = lf.apply || {}, dc = lf.date || {}, tm = lf.tomorrow || {};
-    $("#lifeAt").textContent = (rm.next || "").replace("다음 확인 ", "");
+    var rm = lf.rooms || {}, cr = lf.cars || {}, ap = lf.apply || {}, dc = lf.date || {}, tm = lf.tomorrow || {};
+    $("#lifeAt").textContent = (rm.next || "").replace("다음 확인 ", "").split(" · ")[0];
     var html = "";
 
     if (rm.title){
@@ -1529,6 +1529,13 @@
         '<div class="lt">' + esc(rm.title) + '<span class="dd past">' + esc(rm.value || "") + '</span></div>' +
         '<div class="ld">' + esc(rm.detail || "") + '</div>' +
         '<div class="ln">' + esc(rm.next || "") + '</div>' +
+      '</div></div>';
+    }
+    if (cr.title){
+      html += '<div class="lrow"><span class="lico">' + (cr.emoji || "🚗") + '</span><div class="lb">' +
+        '<div class="lt">' + esc(cr.title) + '<span class="dd">' + esc(cr.value || "") + '</span></div>' +
+        '<div class="ld">' + esc(cr.detail || "") + '</div>' +
+        '<div class="ln">' + esc(cr.next || "") + '</div>' +
       '</div></div>';
     }
     if (ap.title){
