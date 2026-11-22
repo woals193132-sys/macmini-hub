@@ -345,6 +345,7 @@
     background:var(--green-soft); color:var(--green); font-variant-numeric:tabular-nums; white-space:nowrap; letter-spacing:-.01em}
   .op .ot.blue{background:var(--blue-soft); color:var(--blue)}
   .op .ot.amber{background:var(--amber-soft); color:var(--amber)}
+  .op .ot.red{background:var(--red-soft); color:var(--red)}
 
   /* ============ tab bar ============ */
   .tabbar{position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; justify-content:center;
@@ -920,7 +921,10 @@
       <div id="report" class="listcard"></div>
       <div class="sec"><span>🤝</span><h2>B/M · 대외 교류</h2><div class="rule"></div><span class="cnt">시스템·대외협력그룹</span></div>
       <div id="alliance" class="listcard"></div>
-      <div class="sec"><span>🤖</span><h2>3AI 협업 · 본부별 역할</h2><div class="rule"></div><span class="cnt" id="ai3Cnt"></span></div>
+      <div class="sec"><span>🤖</span><h2>4AI 협업 라인업</h2><div class="rule"></div><span class="cnt" id="ai4Cnt"></span></div>
+      <div id="ai4" class="listcard"></div>
+      <div id="ai4pinch" class="listcard"></div>
+      <div class="sec"><span>🤖</span><h2>본부별 역할 (4AI)</h2><div class="rule"></div><span class="cnt" id="ai3Cnt"></span></div>
       <div id="ai3" class="listcard"></div>
       <div class="sec"><span>🕒</span><h2>AI별 예약업무 시간표</h2><div class="rule"></div><span class="cnt">KST · 매일</span></div>
       <div id="ai3time" class="listcard"></div>
@@ -1839,14 +1843,33 @@
         '<span class="ot ' + esc(a.tone || "green") + '">B/M</span></div>';
     }).join("");
     var a3 = d.threeai;
+    if (a3 && $("#ai4")){
+      if ($("#ai4Cnt")) $("#ai4Cnt").textContent = (a3.lineup || []).length + "AI";
+      $("#ai4").innerHTML = (a3.lineup || []).map(function(p){
+        return '<div class="op"><span class="oe">' + (p.emoji || "🤖") + '</span><div class="ob">' +
+          '<div class="on">' + esc(p.who) + '</div>' +
+          '<div class="oc">' + esc(p.role) + '</div></div>' +
+          '<span class="ot ' + esc(p.tone || "green") + '">' + esc(p.tag || "AI") + '</span></div>';
+      }).join("");
+    }
+    if (a3 && a3.pinch && $("#ai4pinch")){
+      var pc = a3.pinch;
+      $("#ai4pinch").innerHTML = '<div class="op"><span class="oe">' + (pc.emoji || "🖋️") + '</span><div class="ob">' +
+        '<div class="on">' + esc(pc.name) + '</div>' +
+        '<div class="oc">' + esc(pc.line) + '</div></div>' +
+        '<span class="ot ' + esc(pc.tone || "red") + '">' + esc(pc.tag || "무료") + '</span></div>' +
+        (pc.duties || []).map(function(s){ return '<div class="op"><span class="oe">•</span><div class="ob"><div class="oc" style="margin-top:0">' + esc(s) + '</div></div></div>'; }).join("") +
+        (pc.not || []).map(function(s){ return '<div class="op"><span class="oe">✕</span><div class="ob"><div class="oc" style="margin-top:0">' + esc(s) + '</div></div></div>'; }).join("");
+    }
     if (a3 && $("#ai3")){
       if ($("#ai3Cnt")) $("#ai3Cnt").textContent = (a3.divisions || []).length + "개 본부";
       $("#ai3").innerHTML = (a3.divisions || []).map(function(v){
         return '<div class="op"><span class="oe">' + (v.emoji || "🤖") + '</span><div class="ob">' +
           '<div class="on">' + esc(v.name) + ' <span style="font-weight:750;color:var(--muted);font-size:11px">맥미니 · ' + esc(v.mack) + '</span></div>' +
           '<div class="oc">GPT · ' + esc(v.gpt) + '</div>' +
-          '<div class="oc">Gemini · ' + esc(v.gemini) + '</div></div>' +
-          '<span class="ot ' + esc(v.tone || "green") + '">3AI</span></div>';
+          '<div class="oc">Gemini · ' + esc(v.gemini) + '</div>' +
+          (v.claude ? '<div class="oc">Claude · ' + esc(v.claude) + '</div>' : '') + '</div>' +
+          '<span class="ot ' + esc(v.tone || "green") + '">4AI</span></div>';
       }).join("");
       if ($("#ai3time")) $("#ai3time").innerHTML = (a3.timetable || []).map(function(t){
         return '<div class="op"><span class="oe" style="width:auto;flex:0 0 46px;justify-items:start;font-size:11.5px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap">' + esc(t.time) + '</span>' +
