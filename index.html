@@ -1733,9 +1733,9 @@
     }
 
     var gs = d.org.groups || [];
-    var live = 0, wait = 0;
-    gs.forEach(function(g){ if (g.tone === "green") live++; else wait++; });
-    $("#deptCnt").textContent = "가동 " + live + " · 준비 " + wait;
+    var tl = 0, tw = 0;
+    gs.forEach(function(g){ (g.teams || []).forEach(function(t){ if (t.tone === "green") tl++; else tw++; }); });
+    $("#deptCnt").textContent = "팀 가동 " + tl + " / " + (tl + tw);
     $("#depts").innerHTML = gs.map(function(g, i){
       var pct = Math.round(g.progress[0] / g.progress[1] * 100);
       var chips = (g.teams || []).map(function(t){ return '<span class="gchip">' + esc(t.name) + '</span>'; }).join("");

@@ -1916,10 +1916,10 @@
   "kpis": [
     {
       "label": "자동화 가동",
-      "value": "10",
-      "unit": "/10",
+      "value": "12",
+      "unit": "/12",
       "tone": "green",
-      "note": "스케줄 10개"
+      "note": "스케줄 12개"
     },
     {
       "label": "부수입 루프",
@@ -2912,7 +2912,7 @@
       "id": "b33",
       "status": "done",
       "title": "KODEX 레버리지 장중 시세 반영 (53,765원)",
-      "dept": "주식운용",
+      "dept": "주식·모의투자",
       "time": "10:58",
       "detail": "코스피 5,032.36(-0.69%) · 1차선 50,000원까지 -7.0% · 익절선 +15%/+25% 신설"
     },
@@ -2968,7 +2968,7 @@
       "id": "b27",
       "status": "done",
       "title": "KODEX 레버리지 종가 반영 (54,400원)",
-      "dept": "주식운용",
+      "dept": "주식·모의투자",
       "time": "19:52",
       "detail": "코스피 5,067.44(+1.99%) · 1차선 50,000원까지 -8.1% · 3분할 대기 유지"
     },
@@ -3000,7 +3000,7 @@
       "id": "b25",
       "status": "done",
       "title": "주식 정보 수집·요약 파이프라인 착수",
-      "dept": "주식운용",
+      "dept": "주식·모의투자",
       "time": "19:20",
       "detail": "스레드 · 텔레그램(공개 채널) · 네프콘 하루 1회 요약 구축 중"
     },
@@ -3040,7 +3040,7 @@
       "id": "b4",
       "status": "done",
       "title": "코스피 낙폭 확인 · 황현희 투자 스타일 분석",
-      "dept": "주식운용",
+      "dept": "주식·모의투자",
       "time": "11:12",
       "detail": "코스피 4,981.67(-46.9%) · 레버리지 52,695원(-79.1%) · 분할 매수 구간 정리"
     },
@@ -3080,7 +3080,7 @@
       "id": "b9",
       "status": "done",
       "title": "코스피·KODEX 레버리지 30분 알람 등록",
-      "dept": "주식운용",
+      "dept": "주식·모의투자",
       "time": "09:40",
       "detail": "장중 30분 · 지수 4,800/4,500/4,000 · 레버리지 50,000/45,000/40,000"
     },
@@ -3409,7 +3409,7 @@
         "name": "코스피 레버리지 알람",
         "cadence": "장중 30분",
         "next": "11/19 11:30",
-        "group": "주식운용",
+        "group": "주식·모의투자",
         "tone": "green"
       },
       {
@@ -3615,13 +3615,13 @@
         "note": "절감 117% · 루프 4트랙"
       },
       {
-        "dept": "청약운용",
+        "dept": "청약·부동산운용",
         "g": "B+",
         "tone": "blue",
         "note": "공고 0건 · 판정 카드 신설"
       },
       {
-        "dept": "주식운용",
+        "dept": "주식·모의투자운용",
         "g": "B",
         "tone": "amber",
         "note": "진입 0/3 · 익절선 신설"
@@ -4544,9 +4544,9 @@
     }
 
     var gs = d.org.groups || [];
-    var live = 0, wait = 0;
-    gs.forEach(function(g){ if (g.tone === "green") live++; else wait++; });
-    $("#deptCnt").textContent = "가동 " + live + " · 준비 " + wait;
+    var tl = 0, tw = 0;
+    gs.forEach(function(g){ (g.teams || []).forEach(function(t){ if (t.tone === "green") tl++; else tw++; }); });
+    $("#deptCnt").textContent = "팀 가동 " + tl + " / " + (tl + tw);
     $("#depts").innerHTML = gs.map(function(g, i){
       var pct = Math.round(g.progress[0] / g.progress[1] * 100);
       var chips = (g.teams || []).map(function(t){ return '<span class="gchip">' + esc(t.name) + '</span>'; }).join("");
