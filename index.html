@@ -921,16 +921,16 @@
       <div id="report" class="listcard"></div>
       <div class="sec"><span>🤝</span><h2>B/M · 대외 교류</h2><div class="rule"></div><span class="cnt">시스템·대외협력그룹</span></div>
       <div id="alliance" class="listcard"></div>
-      <div class="sec"><span>🤖</span><h2>4AI 협업 라인업</h2><div class="rule"></div><span class="cnt" id="ai4Cnt"></span></div>
+      <div class="sec"><span>🤖</span><h2>2AI 정기 협업 라인업</h2><div class="rule"></div><span class="cnt" id="ai4Cnt"></span></div>
       <div id="ai4" class="listcard"></div>
       <div id="ai4pinch" class="listcard"></div>
-      <div class="sec"><span>🤖</span><h2>본부별 역할 (4AI)</h2><div class="rule"></div><span class="cnt" id="ai3Cnt"></span></div>
+      <div class="sec"><span>🤖</span><h2>본부별 역할 (2AI 정기 + 수시)</h2><div class="rule"></div><span class="cnt" id="ai3Cnt"></span></div>
       <div id="ai3" class="listcard"></div>
       <div class="sec"><span>🕒</span><h2>AI별 예약업무 시간표</h2><div class="rule"></div><span class="cnt">KST · 매일</span></div>
       <div id="ai3time" class="listcard"></div>
       <div class="sec"><span>📅</span><h2>본부별 정기 업무</h2><div class="rule"></div><span class="cnt">주간</span></div>
       <div id="ai3week" class="listcard"></div>
-      <p class="foot">자동화 10개를 6시간마다 점검하고, 매일 21:00 노션에 기록합니다</p>
+      <p class="foot">자동화 22개를 6시간마다 점검하고, 매일 21:00 노션에 기록합니다</p>
     </section>
   </main>
 
@@ -1867,9 +1867,8 @@
         return '<div class="op"><span class="oe">' + (v.emoji || "🤖") + '</span><div class="ob">' +
           '<div class="on">' + esc(v.name) + ' <span style="font-weight:750;color:var(--muted);font-size:11px">맥미니 · ' + esc(v.mack) + '</span></div>' +
           '<div class="oc">GPT · ' + esc(v.gpt) + '</div>' +
-          '<div class="oc">Gemini · ' + esc(v.gemini) + '</div>' +
-          (v.claude ? '<div class="oc">Claude · ' + esc(v.claude) + '</div>' : '') + '</div>' +
-          '<span class="ot ' + esc(v.tone || "green") + '">4AI</span></div>';
+          (v.pinch ? '<div class="oc">수시 · ' + esc(v.pinch) + '</div>' : '') + '</div>' +
+          '<span class="ot ' + esc(v.tone || "green") + '">' + esc(v.badge || "2AI") + '</span></div>';
       }).join("");
       if ($("#ai3time")) $("#ai3time").innerHTML = (a3.timetable || []).map(function(t){
         return '<div class="op"><span class="oe" style="width:auto;flex:0 0 46px;justify-items:start;font-size:11.5px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap">' + esc(t.time) + '</span>' +
